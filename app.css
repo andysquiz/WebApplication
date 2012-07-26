@@ -1,0 +1,60 @@
+﻿html{
+	height: 100%;
+	width: 100%;
+}
+body{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+div{
+	margin: 0;
+	padding: 0;
+}
+
+div.clear
+{
+	clear: both;
+}
+
+div.layout-horizontal
+{
+	float: left;
+}
+
+div.layout-top-collapser, div.layout-bottom-collapser, div.layout-left-collapser
+{
+	background-color: Green;
+}
+
+div.layout-top-collapser-collapsed, div.layout-bottom-collapser-collapsed, div.layout-left-collapser-collapsed
+{
+	background-color: Red;
+}
+
+div.layout-left-collapser
+{
+	float: left;
+	width: 20px;
+}
+
+div.top, div.bottom
+{
+    background-color: Blue;
+}
+
+div.left, div.right
+{
+    background-color: Orange;
+}
+
+div.topCollapser, div.bottomCollapser
+{
+    background-color: Red
+}
+
+div.leftCollapser, div.rightCollapser
+{
+    background-color: Green;
+}
