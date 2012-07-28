@@ -5,8 +5,7 @@
     var uo = ko.utils.unwrapObservable;
     self.height = ko.computed({
         read: function () {
-            var minHeight = null;
-            //var minHeight = obj.configMinHeight ? ko.utils.unwrapObservable(obj.configMinHeight) : null;
+            var minHeight = obj.configMinHeight ? uo(obj.configMinHeight) : null;
             var tempHeight;
             if (obj.configHeight && uo(obj.configHeight)) {
                 switch (wsq.utils.str.getConfigValueType(uo(obj.configHeight))) {
@@ -14,15 +13,15 @@
                         return uo(obj.configHeight);
                     case "%":
                         tempHeight = wsq.utils.sizing.getPercentValue(uo(obj.configHeight), uo(parent.height));
-                        return (minHeight && parseInt(tempHeight) < parseInt(minHeight) ? minHeight : tempHeight) + "px";
+                        return minHeight && parseInt(tempHeight) < parseInt(minHeight) ? minHeight : tempHeight + "px";
                 }
             }
             else if (max) {
                 tempHeight = uo(parent.height);
-                return (minHeight && parseInt(tempHeight) < parseInt(minHeight) ? minHeight : tempHeight) + "px";
+                return (minHeight && parseInt(tempHeight) < parseInt(minHeight) ? minHeight : parseInt(tempHeight)) + "px";
             }
             else {
-                return uo(storedHeight) + "px";
+                return minHeight && uo(storedHeight) < parseInt(minHeight) ? minHeight : uo(storedHeight) + "px";
             }
         },
         write: function (value) {
@@ -32,8 +31,7 @@
 
     self.width = ko.computed({
         read: function () {
-            //var minWidth = obj.configMinWidth ? ko.utils.unwrapObservable(obj.configMinWidth) : null;
-            var minWidth = null;
+            var minWidth = obj.configMinWidth ? uo(obj.configMinWidth) : null;
             var tempWidth;
             if (obj.configWidth && uo(obj.configWidth)) {
                 switch (wsq.utils.str.getConfigValueType(uo(obj.configWidth))) {
@@ -41,15 +39,15 @@
                         return uo(obj.configWidth);
                     case "%":
                         tempWidth = wsq.utils.sizing.getPercentValue(uo(obj.configWidth), uo(parent.width));
-                        return (minWidth && parseInt(tempWidth) < parseInt(minWidth) ? minWidth : tempWidth) + "px";
+                        return minWidth && parseInt(tempWidth) < parseInt(minWidth) ? minWidth : tempWidth + "px";
                 }
             }
             else if (max) {
                 tempWidth = uo(parent.width);
-                return (minWidth && parseInt(tempWidth) < parseInt(minWidth) ? minWidth : tempWidth) + "px";
+                return (minWidth && parseInt(tempWidth) < parseInt(minWidth) ? minWidth : parseInt(tempWidth)) + "px";
             }
             else {
-                return uo(storedWidth) + "px";
+                return minWidth && uo(storedWidth) < parseInt(minWidth) ? minWidth : uo(storedWidth) + "px";
             }
         },
         write: function (value) {

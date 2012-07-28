@@ -21,25 +21,35 @@
     var template = {
         controls: [{
             type: wsq.controls.layout,
-            minWidth: "400px",
-            minHeight: "200px",
+            minWidth: "600px",
+            minHeight: "400px",
             invertTopBottom: "$.invertTopBottom",
             top: {
-                collapsible: true,
                 height: "50px",
-                minHeight: "100px",
+                minHeight: "150px",
                 controls: [{
-                    type: wsq.controls.fluidpanel,
-                    controls: [{
-                        type: wsq.controls.label,
-                        text: "$.text"
-                    }],
-                data: "$.top"
+                    type: wsq.controls.layout,
+                    right: {
+                        width: "100px",
+                        controls: [{
+                            type: wsq.controls.label,
+                            text: "version "
+                        },
+                        {
+                            type: wsq.controls.label,
+                            text: "$.version"
+                        }]
+                    },
+                    middle: {
+                        controls: [{
+                            type: wsq.controls.label,
+                            text: "$.name"
+                        }]
+                    }
                 }]
             },
             bottom: {
                 height: "30px",
-                collapsible: true,
                 controls: [{
                     type: wsq.controls.fluidpanel,
                     data: "$.bottom",
@@ -52,6 +62,7 @@
             middle: {
                 controls: [{
                     type: wsq.controls.layout,
+                    minHeight: "200px",
                     invertLeftRight: "$.invertLeftRight",
 					left: {
 						collapsible: true,
@@ -68,7 +79,26 @@
 					},
 					right: {
 						collapsible: true,
-						width: "300px"
+						width: "300px",
+                        controls: [{
+                            type: wsq.controls.layout,
+                            minHeight: "200px",
+                            top: {
+                                height: "50%",
+                                minHeight: "100px",
+                                controls: [{
+                                    type: wsq.controls.label,
+                                    text: "Properties"    
+                                }]
+                            },
+                            middle: {
+                                minHeight: "100px",
+                                controls: [{
+                                    type: wsq.controls.label,
+                                    text: "Events"   
+                                }]
+                            }
+                        }]
 					}
                 }]
             }
@@ -214,7 +244,6 @@
 </script>
 <script type="text/html" id="label">
     <span data-bind="text: text, wswid: true, wsqdimensions: true"></span>
-	<button onclick="invert()">invert</button>
 </script>
 <script type="text/html" id="label2">
     <span data-bind="text: text, wswid: true, wsqdimensions: true"></span>

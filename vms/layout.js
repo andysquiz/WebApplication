@@ -19,6 +19,7 @@
         parent: self,
         root: self.root,
         configHeight: wsq.provider.parse(self.template.top ? self.template.top.height || "0px" : "0px", self.data, self),
+        configWidth: wsq.provider.parse(self.template.top ? self.template.top.width || "100%" : "100%", self.data, self),
         configMinHeight: wsq.provider.parse(self.template.top ? self.template.top.minHeight || null : null, self.data, self),
         collapsible: wsq.provider.parse(self.template.top ? self.template.top.collapsible || false : false, self.data, self, true),
         collapsed: wsq.provider.parse(self.template.top ? self.template.top.collapsed || false : false, self.data, self, true),
@@ -34,6 +35,7 @@
         parent: self,
         root: self.root,
         configHeight: wsq.provider.parse(self.template.bottom ? self.template.bottom.height || "0px" : "0px", self.data, self),
+        configWidth: wsq.provider.parse(self.template.bottom ? self.template.bottom.width || "100%" : "100%", self.data, self),
         configMinHeight: wsq.provider.parse(self.template.bottom ? self.template.bottom.minHeight || null : null, self.data, self),
         collapsible: wsq.provider.parse(self.template.bottom ? self.template.bottom.collapsible || false : false, self.data, self, true),
         collapsed: wsq.provider.parse(self.template.bottom ? self.template.bottom.collapsed || false : false, self.data, self, true),
@@ -79,12 +81,12 @@
     self.middle = {
         parent: self,
         root: self.root,
+        configMinWidth: wsq.provider.parse(self.template.middle ? self.template.middle.minWidth || null : null, self.data, self),
+        configMinHeight: wsq.provider.parse(self.template.middle ? self.template.middle.minHeight || null : null, self.data, self),
         id: self.root.getControlId(),
         controls: ko.observableArray()
     }
     self.middle.dimensions = new wsq.dimensions(self.middle, self.dimensions);
-    
-
 
     self.topCollapser = {
         parent: self,
@@ -144,8 +146,12 @@
     });
     self.middleHeight.subscribe(function (value) {
         self.middle.dimensions.height(value);
+        self.left.dimensions.height(uo(self.middle.dimensions.height));
+        self.right.dimensions.height(uo(self.middle.dimensions.height));
     });
     self.middle.dimensions.height(uo(self.middleHeight) + "px");
+    self.left.dimensions.height(uo(self.middle.dimensions.height));
+    self.right.dimensions.height(uo(self.middle.dimensions.height));
 
     self.middleWidth = ko.computed(function () {
         var newWidth = parseInt(uo(self.dimensions.width))
