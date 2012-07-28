@@ -4,14 +4,14 @@
 
     self.template = template;
     self.data = data;
-    self.orientation = wsq.provider.parse("orientation", self.data) || "vertical";
+    self.orientation = wsq.provider.parse(self.template.orientation || "vertical", self.data, self);
     self.type = "fluidpanel";
-    self.viewTemplate = "fluidpanel";
+    self.viewTemplate = wsq.provider.parse(self.template.viewTemplate || "fluidpanel", self.data, self);
     self.root = self.parent.root;
     self.id = self.root.getControlId();
     self.dimensions = new wsq.dimensions(self, parent.dimensions);
 
-    if (self.data && self.template && self.template.controls) {
-        wsq.controls.createControls.call(self, self.controls, self.template.controls, self.data);
+    if (typeof(self.template.controls) != "undefined") {
+        wsq.controls.createControls.call(self, self.controls, self.template.controls, self.data, self);
     }
 }

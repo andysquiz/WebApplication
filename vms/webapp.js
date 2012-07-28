@@ -21,8 +21,8 @@ wsq.app = function (template, data, identifier) {
     };
 
     function getDimensions() {
-        self.dimensions.height($(window).height());
-        self.dimensions.width($(window).width());
+        self.dimensions.height($(window).height() + "px");
+        self.dimensions.width($(window).width() + "px");
         $(self.resizeControlList()).each(function () {
             var vm = this;
             var elem = document.getElementById(self.identifier + "_" + vm.id);
@@ -40,7 +40,7 @@ wsq.app = function (template, data, identifier) {
     self.id = self.getControlId();
 
 
-    if (self.data && self.template && self.template.controls) {
+    if (typeof(self.template.controls) != "undefined") {
         wsq.controls.createControls.call(self, self.controls, self.template.controls, self.data);
     }
 

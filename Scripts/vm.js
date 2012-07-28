@@ -7,7 +7,7 @@ wsq.controls.createControls = function (vmArr, templateArr, data) {
 	// create the controls and add them to the controls array
 	var self = this;
 	for (var c = 0; c < templateArr.length; c++) {
-		vmArr.push(new templateArr[c].type(templateArr[c],data[templateArr[c].data] || data,self));
+		vmArr.push(new templateArr[c].type(templateArr[c],wsq.provider.parse(templateArr[c].data || null, data, null) || data,self));
 	}
 }   
 

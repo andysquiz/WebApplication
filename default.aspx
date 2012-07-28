@@ -21,120 +21,57 @@
     var template = {
         controls: [{
             type: wsq.controls.layout,
-            invertTopBottom: "invertTopBottom",
-            invertLeftRight: "invertLeftRight",
             minWidth: "400px",
             minHeight: "200px",
+            invertTopBottom: "$.invertTopBottom",
             top: {
+                collapsible: true,
                 height: "50px",
                 minHeight: "100px",
-                collapsible: false,
-                collapsed: false,
                 controls: [{
                     type: wsq.controls.fluidpanel,
                     controls: [{
                         type: wsq.controls.label,
-                        text: "text"
+                        text: "$.text"
                     }],
-                    data: "top"
+                data: "$.top"
                 }]
             },
             bottom: {
                 height: "30px",
-                collapsible: false,
-                collapsed: false,
+                collapsible: true,
                 controls: [{
                     type: wsq.controls.fluidpanel,
-                    data: "bottom",
+                    data: "$.bottom",
 					controls: [{
                         type: wsq.controls.label,
-                        viewTemplate: "label",
-                        text: "text"
+                        text: "$.text"
                     }],
                 }]
-            },
-            left: {
-                width: "0",
-                collapsible: false,
-                collapsed: true,
-                controls: []
-            },
-            right: {
-                width: "0",
-                collapsible: false,
-                collapsed: true,
-                controls: []
             },
             middle: {
                 controls: [{
                     type: wsq.controls.layout,
-					invertTopBottom: "invertTopBottom",
-					invertLeftRight: "invertLeftRight",
-					top: {
-						collapsible: false,
-						collapsed: true,
-						height: "0",
-						controls: []
-					},
-					bottom: {
-						collapsible: false,
-						collapsed: true,
-						height: "0",
-						controls: []
-					},
+                    invertLeftRight: "$.invertLeftRight",
 					left: {
 						collapsible: true,
-						collapsed: false,
 						width: "100px",
 						controls: [{
 							type: wsq.controls.fluidpanel,
 							controls: [{
 								type: wsq.controls.label,
 								viewTemplate: "label2",
-								text: "text"
+								text: "$.text"
 							}]
 						}],
-						data: "left"
+						data: "$.left"
 					},
 					right: {
 						collapsible: true,
-						collapsed: false,
-						width: "300px",
-						controls: []
-					},
-					middle: {
-						controls: []
-					},
-					topCollapser: {
-					    viewTemplate: "layoutTopCollapser"
-					},
-					bottomCollapser: {
-						viewTemplate: "layoutBottomCollapser"
-					},
-					leftCollapser: {
-						viewTemplate: "layoutLeftCollapser",
-						width: "20px"
-					},
-					rightCollapser: {
-						viewTemplate: "layoutRightCollapser",
-						width: "20px"
+						width: "300px"
 					}
                 }]
-            },
-            topCollapser: {
-                viewTemplate: "layoutTopCollapser"
-            },
-            bottomCollapser: {
-                viewTemplate: "layoutBottomCollapser"
-            },
-			leftCollapser: {
-				viewTemplate: "layoutLeftCollapser",
-                width: "20px"
-			},
-            rightCollapser: {
-				viewTemplate: "layoutRightCollapser",
-                width: "20px"
-			}
+            }
         }]
     }
 
@@ -144,8 +81,7 @@
         invertTopBottom: ko.observable(false),
         invertLeftRight: ko.observable(false),
         top: {
-            text: "top",
-            collapsed: ko.observable(false)
+            text: "top"
         },
         bottom: {
             text: "bottom"
