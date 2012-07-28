@@ -62,7 +62,5 @@
 		h = parseInt($(el).height());
 		storedWidth(w + "px");
 		storedHeight(h + "px");
-		//self.height();
-		//self.width();
 	}
 }

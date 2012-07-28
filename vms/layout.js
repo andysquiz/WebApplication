@@ -25,6 +25,8 @@
 		controls: ko.observableArray()
 	}
 	self.top.dimensions = new wsq.dimensions(self.top, self.dimensions);
+	wsq.controls.createControls.call(self.top, self.top.controls, self.template.top.controls, self.data);
+
 	self.bottom = {
 		parent: self,
 		root: self.root,
@@ -35,6 +37,8 @@
 		controls: ko.observableArray()
 	}
 	self.bottom.dimensions = new wsq.dimensions(self.bottom, self.dimensions);
+	wsq.controls.createControls.call(self.bottom, self.bottom.controls, self.template.bottom.controls, self.data);
+
 	self.right = {
 		parent: self,
 		root: self.root,
@@ -45,6 +49,8 @@
 		controls: ko.observableArray()
 	}
 	self.right.dimensions = new wsq.dimensions(self.right, self.dimensions);
+	wsq.controls.createControls.call(self.right, self.right.controls, self.template.right.controls, self.data);
+	
 	self.left = {
 		parent: self,
 		root: self.root,
@@ -55,6 +61,9 @@
 		controls: ko.observableArray()
 	}
 	self.left.dimensions = new wsq.dimensions(self.left, self.dimensions);
+	wsq.controls.createControls.call(self.left, self.left.controls, self.template.left.controls, self.data);
+	
+	
 	self.middle = {
 		parent: self,
 		root: self.root,
@@ -62,6 +71,8 @@
 		controls: ko.observableArray()
 	}
 	self.middle.dimensions = new wsq.dimensions(self.middle, self.dimensions);
+	wsq.controls.createControls.call(self.middle, self.middle.controls, self.template.middle.controls, self.data);
+	
 
 	self.topCollapser = {
 		parent: self,
@@ -121,6 +132,7 @@
 		self.middle.dimensions.height(value);
 	});
 	self.middle.dimensions.height(self.middleHeight());
+
 
 	self.middleWidth = ko.computed(function () {
 		var newWidth = parseInt(self.dimensions.width())

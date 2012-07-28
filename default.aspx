@@ -26,10 +26,10 @@
             minWidth: "400px",
             minHeight: "200px",
             top: {
-                height: "20%",
+                height: "50px",
                 minHeight: "100px",
                 collapsible: false,
-                collapsed: true,
+                collapsed: false,
                 controls: [{
                     type: wsq.controls.fluidpanel,
                     controls: [{
@@ -40,9 +40,9 @@
                 }]
             },
             bottom: {
-                height: "50px",
+                height: "30px",
                 collapsible: false,
-                collapsed: true,
+                collapsed: false,
                 controls: [{
                     type: wsq.controls.fluidpanel,
                     data: "bottom",
@@ -54,32 +54,71 @@
                 }]
             },
             left: {
-                width: "150px",
+                width: "0",
                 collapsible: false,
                 collapsed: true,
-                controls: [{
-                    type: wsq.controls.fluidpanel,
-                    controls: [{
-                        type: wsq.controls.label,
-                        viewTemplate: "label2",
-                        text: "text"
-                    }],
-                    data: "left"
-                }]
+                controls: []
             },
             right: {
-                width: "200px",
+                width: "0",
                 collapsible: false,
-                collapsed: false,
-                controls: [{
-                    type: wsq.controls.fluidpanel,
-                    data: "right"
-                }]
+                collapsed: true,
+                controls: []
             },
             middle: {
                 controls: [{
-                    type: wsq.controls.fluidpanel,
-                    data: "middle"
+                    type: wsq.controls.layout,
+					invertTopBottom: "invertTopBottom",
+					invertLeftRight: "invertLeftRight",
+					top: {
+						collapsible: false,
+						collapsed: true,
+						height: "0",
+						controls: []
+					},
+					bottom: {
+						collapsible: false,
+						collapsed: true,
+						height: "0",
+						controls: []
+					},
+					left: {
+						collapsible: true,
+						collapsed: false,
+						width: "100px",
+						controls: [{
+							type: wsq.controls.fluidpanel,
+							controls: [{
+								type: wsq.controls.label,
+								viewTemplate: "label2",
+								text: "text"
+							}]
+						}],
+						data: "left"
+					},
+					right: {
+						collapsible: true,
+						collapsed: false,
+						width: "300px",
+						controls: []
+					},
+					middle: {
+						controls: []
+					},
+					topCollapser: {
+					    viewTemplate: "layoutTopCollapser"
+					},
+					bottomCollapser: {
+						viewTemplate: "layoutBottomCollapser"
+					},
+					leftCollapser: {
+						viewTemplate: "layoutLeftCollapser",
+						width: "20px"
+					},
+					rightCollapser: {
+						viewTemplate: "layoutRightCollapser",
+						width: "20px"
+					}
                 }]
             },
             topCollapser: {
@@ -102,7 +141,7 @@
     var data = {
         name: "Test app",
         version: "0.0.1",
-        invertTopBottom: ko.observable(true),
+        invertTopBottom: ko.observable(false),
         invertLeftRight: ko.observable(false),
         top: {
             text: "top",
@@ -146,7 +185,9 @@
     <div data-bind="style: { height: dimensions.height, width: dimensions.width}">
 		<!-- ko if: !invertTopBottom() -->
 			<!-- ko if: !top.collapsed() -->
-				<div class="top clear" data-bind="style: {height: top.dimensions.height }">Top</div>
+				<div class="top clear" data-bind="style: {height: top.dimensions.height }, foreach: top.controls">
+					<!-- ko template: viewTemplate --><!-- /ko -->
+				</div>
 			<!-- /ko -->
 			<!-- ko if: top.collapsible -->
 				<!-- ko template: {name: topCollapser.viewTemplate, data: topCollapser} --><!-- /ko -->
@@ -154,7 +195,9 @@
 		<!-- /ko -->
 		<!-- ko if: invertTopBottom() -->
 			<!-- ko if: !bottom.collapsed() -->
-				<div class="bottom clear" data-bind="style: {height: bottom.dimensions.height }">Bottom</div>
+				<div class="bottom clear" data-bind="style: {height: bottom.dimensions.height }, foreach: bottom.controls">
+					<!-- ko template: viewTemplate --><!-- /ko -->
+				</div>
 			<!-- /ko -->
 			<!-- ko if: bottom.collapsible -->
 				<!-- ko template: {name: bottomCollapser.viewTemplate, data: bottomCollapser} --><!-- /ko -->
@@ -163,7 +206,9 @@
         <div data-bind="style: { height: middle.dimensions.height, width: dimensions.width}">
             <!-- ko if: !invertLeftRight() -->
 				<!-- ko if: !left.collapsed() -->
-					<div class="left layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: left.dimensions.width }">Left</div>
+					<div class="left layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: left.dimensions.width }, foreach: left.controls">
+						<!-- ko template: viewTemplate --><!-- /ko -->
+					</div>
 				<!-- /ko -->
 				<!-- ko if: left.collapsible -->
 					<!-- ko template: {name: leftCollapser.viewTemplate, data: leftCollapser} --><!-- /ko -->
@@ -171,22 +216,25 @@
 			<!-- /ko -->
 			<!-- ko if: invertLeftRight() -->
 				<!-- ko if: !right.collapsed() -->
-					<div class="right layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: right.dimensions.width }">Right</div>
+					<div class="right layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: right.dimensions.width }, foreach: right.controls">
+						<!-- ko template: viewTemplate --><!-- /ko -->
+					</div>
 				<!-- /ko -->
 				<!-- ko if: right.collapsible -->
 					<!-- ko template: {name: rightCollapser.viewTemplate, data: rightCollapser} --><!-- /ko -->
 				<!-- /ko -->
 			<!-- /ko -->
-            <div class="layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: middle.dimensions.width }">Middle
-			<button onclick="invert()">Flip Top/Bottom</button>
-			<button onclick="invert2()">Flip Left/Right</button>
+            <div class="layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: middle.dimensions.width }, foreach: middle.controls">
+				<!-- ko template: viewTemplate --><!-- /ko -->
 			</div>
 			<!-- ko if: !invertLeftRight() -->
 				<!-- ko if: right.collapsible -->
 					<!-- ko template: {name: rightCollapser.viewTemplate, data: rightCollapser} --><!-- /ko -->
 				<!-- /ko -->
 				<!-- ko if: !right.collapsed() -->
-					<div class="right layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: right.dimensions.width }">Right</div>
+					<div class="right layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: right.dimensions.width }, foreach: right.controls">
+						<!-- ko template: viewTemplate --><!-- /ko -->
+					</div>
 				<!-- /ko -->
 			<!-- /ko -->
 			<!-- ko if: invertLeftRight() -->
@@ -194,7 +242,9 @@
 					<!-- ko template: {name: leftCollapser.viewTemplate, data: leftCollapser} --><!-- /ko -->
 				<!-- /ko -->
 				<!-- ko if: !left.collapsed() -->
-					<div class="left layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: left.dimensions.width }">Left</div>
+					<div class="left layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: left.dimensions.width }, foreach: left.controls">
+						<!-- ko template: viewTemplate --><!-- /ko -->
+					</div>
 				<!-- /ko -->
 			<!-- /ko -->
         </div>
@@ -203,7 +253,9 @@
 				<!-- ko template: {name: bottomCollapser.viewTemplate, data: bottomCollapser} --><!-- /ko -->
 			<!-- /ko -->
 			<!-- ko if: !bottom.collapsed() -->
-				<div class="bottom clear" data-bind="style: {height: bottom.dimensions.height }">Bottom</div>
+				<div class="bottom clear" data-bind="style: {height: bottom.dimensions.height }, foreach: bottom.controls">
+					<!-- ko template: viewTemplate --><!-- /ko -->
+				</div>
 			<!-- /ko -->
 		<!-- /ko -->
 		<!-- ko if: invertTopBottom() -->
@@ -211,7 +263,9 @@
 				<!-- ko template: {name: topCollapser.viewTemplate, data: topCollapser} --><!-- /ko -->
 			<!-- /ko -->
 			<!-- ko if: !top.collapsed() -->
-				<div class="top clear" data-bind="style: {height: top.dimensions.height }">Top</div>
+				<div class="top clear" data-bind="style: {height: top.dimensions.height }, foreach: top.controls">
+					<!-- ko template: viewTemplate --><!-- /ko -->
+				</div>
 			<!-- /ko -->
 		<!-- /ko -->
     </div>
