@@ -7,6 +7,7 @@
 wsq.provider = {
     root: null,
     parse: function (parsePath, data, controlContext, makeObservable) {
+        if (!makeObservable) { makeObservable = false; }
         if (parsePath == null) { return null; }
         if (typeof (parsePath) == "string") {
             if (wsq.utils.str.startsWith(parsePath, "$") && !wsq.utils.str.startsWith(parsePath, "$$")) {
@@ -52,7 +53,7 @@ wsq.provider = {
             }
         }
         else {
-            return makeObservable && ko.isObservable(parsePath) ? parsePath : ko.observable(parsePath);
+            return ko.isObservable(parsePath) ? parsePath : makeObservable ? ko.observable(parsePath) : parsePath;
         }
     },
     checkDataContext: function (context, data) {

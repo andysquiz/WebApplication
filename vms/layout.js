@@ -18,6 +18,7 @@
     self.top = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.top ? self.template.top.classes || {} : {}, self.data, self),
         configHeight: wsq.provider.parse(self.template.top ? self.template.top.height || "0px" : "0px", self.data, self),
         configWidth: wsq.provider.parse(self.template.top ? self.template.top.width || "100%" : "100%", self.data, self),
         configMinHeight: wsq.provider.parse(self.template.top ? self.template.top.minHeight || null : null, self.data, self),
@@ -34,6 +35,7 @@
     self.bottom = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.bottom ? self.template.bottom.classes || {} : {}, self.data, self),
         configHeight: wsq.provider.parse(self.template.bottom ? self.template.bottom.height || "0px" : "0px", self.data, self),
         configWidth: wsq.provider.parse(self.template.bottom ? self.template.bottom.width || "100%" : "100%", self.data, self),
         configMinHeight: wsq.provider.parse(self.template.bottom ? self.template.bottom.minHeight || null : null, self.data, self),
@@ -50,6 +52,7 @@
     self.right = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.right ? self.template.right.classes || {} : {}, self.data, self),
         configWidth: wsq.provider.parse(self.template.right ? self.template.right.width || "0px" : "0px", self.data, self),
         configMinWidth: wsq.provider.parse(self.template.right ? self.template.right.minWidth || null : null, self.data, self),
         collapsible: wsq.provider.parse(self.template.right ? self.template.right.collapsible || false : false, self.data, self, true),
@@ -65,6 +68,7 @@
     self.left = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.left ? self.template.left.classes || {} : {}, self.data, self),
         configWidth: wsq.provider.parse(self.template.left ? self.template.left.width || "0px" : "0px", self.data, self),
         configMinWidth: wsq.provider.parse(self.template.left ? self.template.left.minWidth || null : null, self.data, self),
         collapsible: wsq.provider.parse(self.template.left ? self.template.left.collapsible || false : false, self.data, self, true),
@@ -81,6 +85,7 @@
     self.middle = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.middle ? self.template.middle.classes || {} : {}, self.data, self),
         configMinWidth: wsq.provider.parse(self.template.middle ? self.template.middle.minWidth || null : null, self.data, self),
         configMinHeight: wsq.provider.parse(self.template.middle ? self.template.middle.minHeight || null : null, self.data, self),
         id: self.root.getControlId(),
@@ -91,6 +96,7 @@
     self.topCollapser = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.topCollapser ? self.template.topCollapser.classes || {} : {}, self.data, self),
         configHeight: wsq.provider.parse(self.template.topCollapser ? self.template.topCollapser.configHeight || "20px" : "20px", self.data, self),
         id: self.root.getControlId(),
         viewTemplate: wsq.provider.parse(self.template.topCollapser ? self.template.topCollapser.viewTemplate || "layoutTopCollapser" : "layoutTopCollapser", self.data, self),
@@ -103,6 +109,7 @@
     self.bottomCollapser = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.classes || {} : {}, self.data, self),
         configHeight: wsq.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.configHeight || "20px" : "20px", self.data, self),
         id: self.root.getControlId(),
         viewTemplate: wsq.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.viewTemplate || "layoutBottomCollapser" : "layoutBottomCollapser", self.data, self),
@@ -115,6 +122,7 @@
     self.leftCollapser = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.classes || {} : {}, self.data, self),
         configWidth: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.configWidth || "20px" : "20px", self.data, self),
         id: self.root.getControlId(),
         viewTemplate: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.viewTemplate || "layoutLeftCollapser" : "layoutLeftCollapser", self.data, self),
@@ -127,6 +135,7 @@
     self.rightCollapser = {
         parent: self,
         root: self.root,
+        cssClasses: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.classes || {} : {}, self.data, self),
         configWidth: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.configWidth || "20px" : "20px", self.data, self),
         id: self.root.getControlId(),
         viewTemplate: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.viewTemplate || "layoutRightCollapser" : "layoutRightCollapser", self.data, self),
