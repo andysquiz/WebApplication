@@ -28,7 +28,11 @@
             invertTopBottom: "$.invertTopBottom",
             top: {
                 height: "50px",
-                minHeight: "150px",
+                minHeight: "50px",
+                classes: {
+                    "app-top": true
+                },
+                borderHeight: 1,
                 controls: [{
                     type: wsq.controls.layout,
                     right: {
@@ -48,6 +52,10 @@
             },
             bottom: {
                 height: "30px",
+                classes: {
+                    'app-bottom':true
+                },
+                borderHeight: 3,
                 controls: [{
                     type: wsq.controls.fluidpanel,
                     data: "$.bottom",
@@ -151,7 +159,7 @@
     <div data-bind="style: { height: dimensions.height, width: dimensions.width}">
 		<!-- ko if: !invertTopBottom() -->
 			<!-- ko if: !top.collapsed() -->
-				<div class="clear" data-bind="style: {height: top.dimensions.height }, foreach: top.controls, css: top.cssClasses">
+				<div class="clear" data-bind="style: {height: topHeight }, foreach: top.controls, css: top.cssClasses">
 					<!-- ko template: viewTemplate --><!-- /ko -->
 				</div>
 			<!-- /ko -->
@@ -219,7 +227,7 @@
 				<!-- ko template: {name: bottomCollapser.viewTemplate, data: bottomCollapser} --><!-- /ko -->
 			<!-- /ko -->
 			<!-- ko if: !bottom.collapsed() -->
-				<div class="clear" data-bind="style: {height: bottom.dimensions.height }, foreach: bottom.controls, css: bottom.cssClasses">
+				<div class="clear" data-bind="style: {height: bottomHeight }, foreach: bottom.controls, css: bottom.cssClasses">
 					<!-- ko template: viewTemplate --><!-- /ko -->
 				</div>
 			<!-- /ko -->

@@ -39,6 +39,18 @@ div.layout-left-collapser
 	width: 20px;
 }
 
+div.app-top
+{
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #dddddd;
+}
+
+div.app-bottom
+{
+    background-color: #e9e9e9;
+    border-top: 3px solid #dddddd;
+}
+
 div.top, div.bottom
 {
     background-color: Blue;

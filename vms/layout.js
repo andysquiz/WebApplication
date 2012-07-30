@@ -24,13 +24,20 @@
         configMinHeight: wsq.provider.parse(self.template.top ? self.template.top.minHeight || null : null, self.data, self),
         collapsible: wsq.provider.parse(self.template.top ? self.template.top.collapsible || false : false, self.data, self, true),
         collapsed: wsq.provider.parse(self.template.top ? self.template.top.collapsed || false : false, self.data, self, true),
+        borderHeight: wsq.provider.parse(self.template.top ? self.template.top.borderHeight || 0 : 0, self.data, self, true),
         id: self.root.getControlId(),
         controls: ko.observableArray()
     }
     self.top.dimensions = new wsq.dimensions(self.top, self.dimensions);
-    if (self.template.top && typeof(self.template.top.controls) != "undefined") {
+    if (self.template.top && typeof (self.template.top.controls) != "undefined") {
         wsq.controls.createControls.call(self.top, self.top.controls, self.template.top.controls, self.data);
     }
+
+    self.topHeight = ko.computed(function () { 
+        return (parseInt(uo(self.top.dimensions.height)) - parseInt(uo(self.top.borderHeight))) + "px";
+    });
+    
+    
 
     self.bottom = {
         parent: self,
@@ -41,13 +48,18 @@
         configMinHeight: wsq.provider.parse(self.template.bottom ? self.template.bottom.minHeight || null : null, self.data, self),
         collapsible: wsq.provider.parse(self.template.bottom ? self.template.bottom.collapsible || false : false, self.data, self, true),
         collapsed: wsq.provider.parse(self.template.bottom ? self.template.bottom.collapsed || false : false, self.data, self, true),
+        borderHeight: wsq.provider.parse(self.template.bottom ? self.template.bottom.borderHeight || 0 : 0, self.data, self, true),
         id: self.root.getControlId(),
         controls: ko.observableArray()
     }
     self.bottom.dimensions = new wsq.dimensions(self.bottom, self.dimensions);
-    if (self.template.bottom && typeof(self.template.bottom.controls) != "undefined") {
+    if (self.template.bottom && typeof (self.template.bottom.controls) != "undefined") {
         wsq.controls.createControls.call(self.bottom, self.bottom.controls, self.template.bottom.controls, self.data);
     }
+
+    self.bottomHeight = ko.computed(function () {
+        return (parseInt(uo(self.bottom.dimensions.height)) - parseInt(uo(self.bottom.borderHeight))) + "px";
+    });
 
     self.right = {
         parent: self,
@@ -61,7 +73,7 @@
         controls: ko.observableArray()
     }
     self.right.dimensions = new wsq.dimensions(self.right, self.dimensions);
-    if (self.template.right && typeof(self.template.right.controls) != "undefined") {
+    if (self.template.right && typeof (self.template.right.controls) != "undefined") {
         wsq.controls.createControls.call(self.right, self.right.controls, self.template.right.controls, self.data);
     }
 
@@ -77,7 +89,7 @@
         controls: ko.observableArray()
     }
     self.left.dimensions = new wsq.dimensions(self.left, self.dimensions);
-    if (self.template.left && typeof(self.template.left.controls)!= "undefined") {
+    if (self.template.left && typeof (self.template.left.controls) != "undefined") {
         wsq.controls.createControls.call(self.left, self.left.controls, self.template.left.controls, self.data);
     }
 
