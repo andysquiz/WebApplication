@@ -10,47 +10,13 @@ wsq.provider = {
         if (!makeObservable) { makeObservable = false; }
         if (parsePath == null) { return null; }
         if (typeof (parsePath) == "string") {
-            if (wsq.utils.str.startsWith(parsePath, "$") && !wsq.utils.str.startsWith(parsePath, "$$")) {
-                var parts = parsePath.split(".");
-                var newContext = wsq.provider.checkDataContext.call(controlContext, parts[0]);
-                if (newContext) {
-                    data = newContext;
-                }
-                parts.splice(0, 1);
-
-                while (parts.length > 0 && data) {
-                    if (parts.length == 1) {
-                        data = data[parts.splice(0, 1)];
-                        if (makeObservable && !ko.isObservable(data)) {
-                            data = ko.observable(data);
-                        }
-                    }
-                    else {
-                        if (parts[0].toString().length == 0) {
-                            parts.splice(0, 1);
-                            controlContext = controlContext.parent;
-                            if (controlContext) {
-                                data = controlContext.data;
-                            }
-                            else {
-                                data = null;
-                                break;
-                            }
-                        }
-                        else {
-                            data = ko.utils.unwrapObservable(data[parts.splice(0, 1)]);
-                        }
-                    }
-                }
-
-                return data || null;
+            var tokens = wsq.expressions.tokenise(parsePath);
+            var result = null;
+            while (tokens.length > 0) {
+                var token = tokens[tokens.length - 1];
+                result = token.type(tokens, data, controlContext, makeObservable, result);
             }
-            else {
-                if (wsq.utils.str.startsWith(parsePath, "$$")) {
-                    return parsePath.substr(1);
-                }
-                return parsePath;
-            }
+            return result;
         }
         else {
             return ko.isObservable(parsePath) ? parsePath : makeObservable ? ko.observable(parsePath) : parsePath;

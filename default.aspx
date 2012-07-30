@@ -11,6 +11,7 @@
     <script src="scripts/utils.js" type="text/javascript"></script>
 	<script src="scripts/dimensions.js" type="text/javascript"></script>
     <script src="scripts/provider.js" type="text/javascript"></script>
+    <script src="scripts/expressions.js" type="text/javascript"></script>
     <script src="vms/webapp.js" type="text/javascript"></script>
     <script src="vms/layout.js" type="text/javascript"></script>
     <script src="vms/label.js" type="text/javascript"></script>
@@ -18,6 +19,7 @@
 	<link rel="Stylesheet" href="app.css" />
 </head>
 <script type="text/javascript">
+    
     var template = {
         controls: [{
             type: wsq.controls.layout,
@@ -27,20 +29,13 @@
             top: {
                 height: "50px",
                 minHeight: "150px",
-                classes: {
-                    "top": true
-                },
                 controls: [{
                     type: wsq.controls.layout,
                     right: {
                         width: "100px",
                         controls: [{
                             type: wsq.controls.label,
-                            text: "version "
-                        },
-                        {
-                            type: wsq.controls.label,
-                            text: "$.version"
+                            text: "\"version \" + $.version"
                         }]
                     },
                     middle: {
@@ -112,7 +107,7 @@
 
     var data = {
         name: "Test app",
-        version: "0.0.1",
+        version: ko.observable("0.0.1"),
         invertTopBottom: ko.observable(false),
         invertLeftRight: ko.observable(false),
         top: {
@@ -267,7 +262,6 @@
     <div class="layout-horizontal" data-bind="wsqid: true, wsqdimensions: true, style:{height: $parent.middle.dimensions.height, width: dimensions.width}, click: toggleCollapse, css: cssClasses">r</div>
 </script>
 <body style="height:100%; width:100%">
-	
 	<div data-bind="template: 'app'"></div>
 	<script type="text/javascript">
 		var app = new wsq.app(template, data);

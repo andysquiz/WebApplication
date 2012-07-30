@@ -56,6 +56,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\dimensions.js" />
     <Content Include="Scripts\dimensionsExtender.js" />
+    <Content Include="Scripts\expressions.js" />
     <Content Include="Scripts\idExtender.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
