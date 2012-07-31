@@ -7,6 +7,7 @@
 	<script src="scripts/knockout-2.1.0.debug.js" type="text/javascript"></script>
 	<script src="scripts/idExtender.js" type="text/javascript"></script>
 	<script src="scripts/dimensionsExtender.js" type="text/javascript"></script>
+	<script src="scripts/styleExtenders.js" type="text/javascript"></script>
 	<script src="scripts/vm.js" type="text/javascript"></script>
     <script src="scripts/utils.js" type="text/javascript"></script>
 	<script src="scripts/dimensions.js" type="text/javascript"></script>
@@ -32,6 +33,9 @@
                 classes: {
                     "app-top": true
                 },
+				invertedClasses: {
+					"app-top-inverted": true
+				},
                 borderHeight: 1,
                 controls: [{
                     type: wsq.controls.layout,
@@ -55,6 +59,9 @@
                 classes: {
                     'app-bottom':true
                 },
+				invertedClasses: {
+					"app-bottom-inverted": true
+				},
                 borderHeight: 3,
                 controls: [{
                     type: wsq.controls.fluidpanel,
@@ -159,7 +166,7 @@
     <div data-bind="style: { height: dimensions.height, width: dimensions.width}">
 		<!-- ko if: !invertTopBottom() -->
 			<!-- ko if: !top.collapsed() -->
-				<div class="clear" data-bind="style: {height: topHeight }, foreach: top.controls, css: top.cssClasses">
+				<div class="clear" data-bind="css: top.cssClasses, wsqstyleheight: {obj: top.dimensions}, foreach: top.controls">
 					<!-- ko template: viewTemplate --><!-- /ko -->
 				</div>
 			<!-- /ko -->
@@ -169,7 +176,7 @@
 		<!-- /ko -->
 		<!-- ko if: invertTopBottom() -->
 			<!-- ko if: !bottom.collapsed() -->
-				<div class="clear" data-bind="style: {height: bottom.dimensions.height }, foreach: bottom.controls, css: bottom.cssClasses">
+				<div class="clear" data-bind="foreach: bottom.controls, css: bottom.invertedCssClasses, wsqstyleheight: {obj: bottom.dimensions}">
 					<!-- ko template: viewTemplate --><!-- /ko -->
 				</div>
 			<!-- /ko -->
@@ -177,10 +184,10 @@
 				<!-- ko template: {name: bottomCollapser.viewTemplate, data: bottomCollapser} --><!-- /ko -->
 			<!-- /ko -->
 		<!-- /ko -->
-        <div data-bind="style: { height: middle.dimensions.height, width: dimensions.width}">
+        <div data-bind="style: { height: middleHeight, width: dimensions.width}">
             <!-- ko if: !invertLeftRight() -->
 				<!-- ko if: !left.collapsed() -->
-					<div class="layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: left.dimensions.width }, foreach: left.controls, css: left.cssClasses">
+					<div class="layout-horizontal" data-bind="foreach: left.controls, css: left.cssClasses, wsqstyleheight: {obj: left.dimensions}, wsqstylewidth: {obj: left.dimensions}">
 						<!-- ko template: viewTemplate --><!-- /ko -->
 					</div>
 				<!-- /ko -->
@@ -190,7 +197,7 @@
 			<!-- /ko -->
 			<!-- ko if: invertLeftRight() -->
 				<!-- ko if: !right.collapsed() -->
-					<div class="layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: right.dimensions.width }, foreach: right.controls, css: right.cssClasses">
+					<div class="layout-horizontal" data-bind="foreach: right.controls, css: right.cssClasses, wsqstyleheight: {obj: right.dimensions}, wsqstylewidth: {obj: right.dimensions}">
 						<!-- ko template: viewTemplate --><!-- /ko -->
 					</div>
 				<!-- /ko -->
@@ -198,7 +205,7 @@
 					<!-- ko template: {name: rightCollapser.viewTemplate, data: rightCollapser} --><!-- /ko -->
 				<!-- /ko -->
 			<!-- /ko -->
-            <div class="layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: middle.dimensions.width }, foreach: middle.controls, css: middle.cssClasses">
+            <div class="layout-horizontal" data-bind="foreach: middle.controls, css: middle.cssClasses, wsqstyleheight: {value: middleHeight, obj: middle.dimensions}, wsqstylewidth: {value: middleWidth, obj: middle.dimensions}">
 				<!-- ko template: viewTemplate --><!-- /ko -->
 			</div>
 			<!-- ko if: !invertLeftRight() -->
@@ -206,7 +213,7 @@
 					<!-- ko template: {name: rightCollapser.viewTemplate, data: rightCollapser} --><!-- /ko -->
 				<!-- /ko -->
 				<!-- ko if: !right.collapsed() -->
-					<div class="layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: right.dimensions.width }, foreach: right.controls, css: right.cssClasses">
+					<div class="layout-horizontal" data-bind="foreach: right.controls, css: right.cssClasses, wsqstyleheight: {obj: right.dimensions}, wsqstylewidth: {obj: right.dimensions}">
 						<!-- ko template: viewTemplate --><!-- /ko -->
 					</div>
 				<!-- /ko -->
@@ -216,7 +223,7 @@
 					<!-- ko template: {name: leftCollapser.viewTemplate, data: leftCollapser} --><!-- /ko -->
 				<!-- /ko -->
 				<!-- ko if: !left.collapsed() -->
-					<div class="layout-horizontal" data-bind="style: { height: middle.dimensions.height, width: left.dimensions.width }, foreach: left.controls, css: left.cssClasses">
+					<div class="layout-horizontal" data-bind="foreach: left.controls, css: left.cssClasses, wsqstyleheight: {obj: left.dimensions}, wsqstylewidth: {obj: left.dimensions}">
 						<!-- ko template: viewTemplate --><!-- /ko -->
 					</div>
 				<!-- /ko -->
@@ -227,7 +234,7 @@
 				<!-- ko template: {name: bottomCollapser.viewTemplate, data: bottomCollapser} --><!-- /ko -->
 			<!-- /ko -->
 			<!-- ko if: !bottom.collapsed() -->
-				<div class="clear" data-bind="style: {height: bottomHeight }, foreach: bottom.controls, css: bottom.cssClasses">
+				<div class="clear" data-bind="foreach: bottom.controls, css: bottom.cssClasses, wsqstyleheight: {obj: bottom.dimensions}">
 					<!-- ko template: viewTemplate --><!-- /ko -->
 				</div>
 			<!-- /ko -->
@@ -237,7 +244,7 @@
 				<!-- ko template: {name: topCollapser.viewTemplate, data: topCollapser} --><!-- /ko -->
 			<!-- /ko -->
 			<!-- ko if: !top.collapsed() -->
-				<div class="clear" data-bind="style: {height: top.dimensions.height }, foreach: top.controls, css: top.cssClasses">
+				<div class="clear" data-bind="foreach: top.controls, css: top.invertedCssClasses, wsqstyleheight: {obj: top.dimensions}">
 					<!-- ko template: viewTemplate --><!-- /ko -->
 				</div>
 			<!-- /ko -->
@@ -255,19 +262,19 @@
 </script>
 <script type="text/html" id="label2">
     <span data-bind="text: text, wswid: true, wsqdimensions: true"></span>
-	<button onclick="invert2()">invert</button>
+	<button onclick="invert()">invert</button>
 </script>
 <script type="text/html" id="layoutTopCollapser">
-    <div class="clear" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses">Top Collapser</div>
+    <div class="clear" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Top Collapser</div>
 </script>
 <script type="text/html" id="layoutBottomCollapser">
-    <div class="clear" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses">Bottom Collasper</div>
+    <div class="clear" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Bottom Collasper</div>
 </script>
 <script type="text/html" id="layoutLeftCollapser">
-    <div class="layout-horizontal" data-bind="wsqid: true, wsqdimensions: true, style: {height: $parent.middle.dimensions.height, width: dimensions.width}, click: toggleCollapse, css: cssClasses">l</div>
+    <div class="layout-horizontal" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">l</div>
 </script>
 <script type="text/html" id="layoutRightCollapser">
-    <div class="layout-horizontal" data-bind="wsqid: true, wsqdimensions: true, style:{height: $parent.middle.dimensions.height, width: dimensions.width}, click: toggleCollapse, css: cssClasses">r</div>
+    <div class="layout-horizontal" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">r</div>
 </script>
 <body style="height:100%; width:100%">
 	<div data-bind="template: 'app'"></div>

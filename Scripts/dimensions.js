@@ -12,12 +12,12 @@
                     case "px":
                         return uo(obj.configHeight);
                     case "%":
-                        tempHeight = wsq.utils.sizing.getPercentValue(uo(obj.configHeight), uo(parent.height));
+                        tempHeight = wsq.utils.sizing.getPercentValue(uo(obj.configHeight), uo(parent.innerHeight) || uo(parent.height));
                         return minHeight && parseInt(tempHeight) < parseInt(minHeight) ? minHeight : tempHeight + "px";
                 }
             }
             else if (max) {
-                tempHeight = uo(parent.height);
+                tempHeight = uo(parent.innerHeight) || uo(parent.height);
                 return (minHeight && parseInt(tempHeight) < parseInt(minHeight) ? minHeight : parseInt(tempHeight)) + "px";
             }
             else {
@@ -28,6 +28,7 @@
             storedHeight(parseInt(uo(value)));
         }
     });
+    self.innerHeight = ko.observable(null);
 
     self.width = ko.computed({
         read: function () {
@@ -38,12 +39,12 @@
                     case "px":
                         return uo(obj.configWidth);
                     case "%":
-                        tempWidth = wsq.utils.sizing.getPercentValue(uo(obj.configWidth), uo(parent.width));
+                        tempWidth = wsq.utils.sizing.getPercentValue(uo(obj.configWidth), uo(parent.innerWidth) || uo(parent.width));
                         return minWidth && parseInt(tempWidth) < parseInt(minWidth) ? minWidth : tempWidth + "px";
                 }
             }
             else if (max) {
-                tempWidth = uo(parent.width);
+                tempWidth = uo(parent.innerWidth) || uo(parent.width);
                 return (minWidth && parseInt(tempWidth) < parseInt(minWidth) ? minWidth : parseInt(tempWidth)) + "px";
             }
             else {
@@ -54,7 +55,7 @@
             storedWidth(parseInt(uo(value)));
         }
     });
-
+    self.innerWidth = ko.observable(null);
     self.setRenderDimensions = function (el) {
         var w, h;
         w = parseInt($(el).width());

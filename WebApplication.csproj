@@ -62,6 +62,7 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\provider.js" />
     <Content Include="Scripts\resizeEvent.js" />
+    <Content Include="Scripts\styleextenders.js" />
     <Content Include="Scripts\utils.js" />
     <Content Include="vms\label.js" />
     <Content Include="vms\layout.js" />
