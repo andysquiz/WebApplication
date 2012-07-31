@@ -55,6 +55,7 @@
 		parent: self,
 		root: self.root,
 		cssClasses: wsq.provider.parse(self.template.right ? self.template.right.classes || {} : {}, self.data, self),
+		invertedCssClasses: wsq.provider.parse(self.template.right ? self.template.right.invertedClasses || {} : {}, self.data, self),
 		configWidth: wsq.provider.parse(self.template.right ? self.template.right.width || "0px" : "0px", self.data, self),
 		configMinWidth: wsq.provider.parse(self.template.right ? self.template.right.minWidth || null : null, self.data, self),
 		collapsible: wsq.provider.parse(self.template.right ? self.template.right.collapsible || false : false, self.data, self, true),
@@ -71,6 +72,7 @@
 		parent: self,
 		root: self.root,
 		cssClasses: wsq.provider.parse(self.template.left ? self.template.left.classes || {} : {}, self.data, self),
+		invertedCssClasses: wsq.provider.parse(self.template.left ? self.template.left.invertedClasses || {} : {}, self.data, self),
 		configWidth: wsq.provider.parse(self.template.left ? self.template.left.width || "0px" : "0px", self.data, self),
 		configMinWidth: wsq.provider.parse(self.template.left ? self.template.left.minWidth || null : null, self.data, self),
 		collapsible: wsq.provider.parse(self.template.left ? self.template.left.collapsible || false : false, self.data, self, true),
@@ -124,7 +126,7 @@
 		parent: self,
 		root: self.root,
 		cssClasses: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.classes || {} : {}, self.data, self),
-		configWidth: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.configWidth || "20px" : "20px", self.data, self),
+		configWidth: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.configWidth || "5px" : "5px", self.data, self),
 		id: self.root.getControlId(),
 		viewTemplate: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.viewTemplate || "layoutLeftCollapser" : "layoutLeftCollapser", self.data, self),
 		toggleCollapse: function () {
@@ -137,7 +139,7 @@
 		parent: self,
 		root: self.root,
 		cssClasses: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.classes || {} : {}, self.data, self),
-		configWidth: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.configWidth || "20px" : "20px", self.data, self),
+		configWidth: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.configWidth || "5px" : "5px", self.data, self),
 		id: self.root.getControlId(),
 		viewTemplate: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.viewTemplate || "layoutRightCollapser" : "layoutRightCollapser", self.data, self),
 		toggleCollapse: function () {
