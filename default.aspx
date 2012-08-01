@@ -15,6 +15,7 @@
     <script src="scripts/expressions.js" type="text/javascript"></script>
     <script src="vms/webapp.js" type="text/javascript"></script>
     <script src="vms/layout.js" type="text/javascript"></script>
+    <script src="vms/fillpanel.js" type="text/javascript"></script>
     <script src="vms/label.js" type="text/javascript"></script>
     <script src="vms/fluidpanel.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
@@ -31,9 +32,7 @@
                 height: "30px",
                 minHeight: "30px",
                 classes: {
-                    "app-top": true
-                },
-				invertedClasses: {
+                    "app-top": false,
 					"app-top-inverted": true
 				},
                 controls: [{
@@ -41,7 +40,7 @@
                     right: {
                         width: "100px",
                         classes: {
-                            "app-version": true
+                            "app-version": false
                         },
                         controls: [{
                             type: wsq.controls.label,
@@ -59,9 +58,7 @@
             bottom: {
                 height: "30px",
                 classes: {
-                    'app-bottom':true
-                },
-				invertedClasses: {
+                    "app-bottom":false,
 					"app-bottom-inverted": true
 				},
                 controls: [{
@@ -70,7 +67,7 @@
 					controls: [{
                         type: wsq.controls.label,
                         text: "$.text"
-                    }],
+                    }]
                 }]
             },
             middle: {
@@ -81,14 +78,24 @@
 						collapsible: true,
 						width: "250px",
                         classes: {
-                            'app-left': true
+                            "app-left": false,
+                            "auto": false
                         },
 						controls: []
 					},
                     leftCollapser: {
                         classes: {
-                            'app-left-collapser': true
-                        }
+                            "app-left-collapser": false,
+							"app-left-collapser-collapsed": true
+						}
+                    },
+                    middle:{
+                        controls:[{
+                            type: wsq.controls.fillpanel,
+                            classes: {
+                                "content": true
+                            }
+                        }]
                     }
                 }]
             }
@@ -232,6 +239,12 @@
         <!-- /ko -->
     </div>
 </script>
+<script type="text/html" id="fillpanel">
+    <div data-bind="foreach: controls, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">
+        <!-- ko template: viewTemplate -->
+        <!-- /ko -->
+    </div>
+</script>
 <script type="text/html" id="label">
     <span data-bind="text: text, wswid: true, wsqdimensions: true"></span>
 </script>
@@ -240,16 +253,16 @@
 	<button onclick="invert2()">invert</button>
 </script>
 <script type="text/html" id="layoutTopCollapser">
-    <div class="clear" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Top Collapser</div>
+    <div class="clear" data-bind="click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Top Collapser</div>
 </script>
 <script type="text/html" id="layoutBottomCollapser">
-    <div class="clear" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Bottom Collasper</div>
+    <div class="clear" data-bind="click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Bottom Collasper</div>
 </script>
 <script type="text/html" id="layoutLeftCollapser">
-    <div class="layout-horizontal" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}"></div>
+	<div class="layout-horizontal" data-bind="click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}"></div>
 </script>
 <script type="text/html" id="layoutRightCollapser">
-    <div class="layout-horizontal" data-bind="wsqid: true, wsqdimensions: true, click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}"></div>
+    <div class="layout-horizontal" data-bind="click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}"></div>
 </script>
 <body style="height:100%; width:100%">
 	<div data-bind="template: 'app'"></div>

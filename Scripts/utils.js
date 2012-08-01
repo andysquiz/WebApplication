@@ -1,6 +1,8 @@
 ﻿wsq.utils = {};
 wsq.utils.str = {};
-wsq.utils.sizing = {}
+wsq.utils.sizing = {};
+wsq.utils.style = {};
+
 
 wsq.utils.str.endsWith = function (str, match) {
     if (typeof (str) != "string"
@@ -45,8 +47,6 @@ wsq.utils.sizing.getConfigValue = function (value, parent) {
 	}
 }
 
-
-
 wsq.utils.sizing.getPercentValue = function (value, parentValue) {
 	var pv = parseInt(ko.utils.unwrapObservable(parentValue));
 	value = parseInt(value);
@@ -54,4 +54,18 @@ wsq.utils.sizing.getPercentValue = function (value, parentValue) {
 		return Math.round((parseInt(value) / 100) * pv);
 	}
 	return null;
+}
+
+
+wsq.utils.style.createClassObject = function (classesToApply, comparisonValue) {
+    var classes = {};
+    for (var c in classesToApply) {
+        if (classesToApply[c]) {
+            classes[c] = comparisonValue || true;
+        }
+        else {
+            classes[c] = ko.computed(function () { return !ko.utils.unwrapObservable(comparisonValue); });
+        }
+    }
+    return classes;
 }
