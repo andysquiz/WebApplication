@@ -6,24 +6,24 @@
     self.template = template;
     self.data = data;
     self.type = "layout";
-    self.viewTemplate = wsq.provider.parse(self.template.viewTemplate || "layout", self.data, self);
-    self.configMinHeight = wsq.provider.parse(self.template.minHeight, self.data, self);
-    self.configMinWidth = wsq.provider.parse(self.template.minWidth, self.data, self);
+    self.viewTemplate = self.provider.parse(self.template.viewTemplate || "layout", self.data, self);
+    self.configMinHeight = self.provider.parse(self.template.minHeight, self.data, self);
+    self.configMinWidth = self.provider.parse(self.template.minWidth, self.data, self);
     self.root = self.parent.root;
     self.id = self.root.getControlId();
-    self.invertLeftRight = wsq.provider.parse(self.template.invertLeftRight || false, self.data, self, true);
-    self.invertTopBottom = wsq.provider.parse(self.template.invertTopBottom || false, self.data, self, true);
+    self.invertLeftRight = self.provider.parse(self.template.invertLeftRight || false, self.data, self, true);
+    self.invertTopBottom = self.provider.parse(self.template.invertTopBottom || false, self.data, self, true);
     self.dimensions = new wsq.dimensions(self, parent.dimensions, true);
 
     self.top = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.top ? self.template.top.classes || {} : {}, self.data, self), self.invertTopBottom),
-        configHeight: wsq.provider.parse(self.template.top ? self.template.top.height || "0px" : "0px", self.data, self),
-        configWidth: wsq.provider.parse(self.template.top ? self.template.top.width || "100%" : "100%", self.data, self),
-        configMinHeight: wsq.provider.parse(self.template.top ? self.template.top.minHeight || null : null, self.data, self),
-        collapsible: wsq.provider.parse(self.template.top ? self.template.top.collapsible || false : false, self.data, self, true),
-        collapsed: wsq.provider.parse(self.template.top ? self.template.top.collapsed || false : false, self.data, self, true),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.top ? self.template.top.classes || {} : {}, self.data, self), self.invertTopBottom),
+        configHeight: self.provider.parse(self.template.top ? self.template.top.height || "0px" : "0px", self.data, self),
+        configWidth: self.provider.parse(self.template.top ? self.template.top.width || "100%" : "100%", self.data, self),
+        configMinHeight: self.provider.parse(self.template.top ? self.template.top.minHeight || null : null, self.data, self),
+        collapsible: self.provider.parse(self.template.top ? self.template.top.collapsible || false : false, self.data, self, true),
+        collapsed: self.provider.parse(self.template.top ? self.template.top.collapsed || false : false, self.data, self, true),
         id: self.root.getControlId(),
         controls: ko.observableArray()
     };
@@ -36,12 +36,12 @@
     self.bottom = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.bottom ? self.template.bottom.classes || {} : {}, self.data, self), self.invertTopBottom),
-        configHeight: wsq.provider.parse(self.template.bottom ? self.template.bottom.height || "0px" : "0px", self.data, self),
-        configWidth: wsq.provider.parse(self.template.bottom ? self.template.bottom.width || "100%" : "100%", self.data, self),
-        configMinHeight: wsq.provider.parse(self.template.bottom ? self.template.bottom.minHeight || null : null, self.data, self),
-        collapsible: wsq.provider.parse(self.template.bottom ? self.template.bottom.collapsible || false : false, self.data, self, true),
-        collapsed: wsq.provider.parse(self.template.bottom ? self.template.bottom.collapsed || false : false, self.data, self, true),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.bottom ? self.template.bottom.classes || {} : {}, self.data, self), self.invertTopBottom),
+        configHeight: self.provider.parse(self.template.bottom ? self.template.bottom.height || "0px" : "0px", self.data, self),
+        configWidth: self.provider.parse(self.template.bottom ? self.template.bottom.width || "100%" : "100%", self.data, self),
+        configMinHeight: self.provider.parse(self.template.bottom ? self.template.bottom.minHeight || null : null, self.data, self),
+        collapsible: self.provider.parse(self.template.bottom ? self.template.bottom.collapsible || false : false, self.data, self, true),
+        collapsed: self.provider.parse(self.template.bottom ? self.template.bottom.collapsed || false : false, self.data, self, true),
         id: self.root.getControlId(),
         controls: ko.observableArray()
     }
@@ -53,12 +53,12 @@
     self.right = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.right ? self.template.right.classes || {} : {}, self.data, self), self.invertLeftRight),
-        invertedCssClasses: wsq.provider.parse(self.template.right ? self.template.right.invertedClasses || self.template.right.classes || {} : {}, self.data, self),
-        configWidth: wsq.provider.parse(self.template.right ? self.template.right.width || "0px" : "0px", self.data, self),
-        configMinWidth: wsq.provider.parse(self.template.right ? self.template.right.minWidth || null : null, self.data, self),
-        collapsible: wsq.provider.parse(self.template.right ? self.template.right.collapsible || false : false, self.data, self, true),
-        collapsed: wsq.provider.parse(self.template.right ? self.template.right.collapsed || false : false, self.data, self, true),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.right ? self.template.right.classes || {} : {}, self.data, self), self.invertLeftRight),
+        invertedCssClasses: self.provider.parse(self.template.right ? self.template.right.invertedClasses || self.template.right.classes || {} : {}, self.data, self),
+        configWidth: self.provider.parse(self.template.right ? self.template.right.width || "0px" : "0px", self.data, self),
+        configMinWidth: self.provider.parse(self.template.right ? self.template.right.minWidth || null : null, self.data, self),
+        collapsible: self.provider.parse(self.template.right ? self.template.right.collapsible || false : false, self.data, self, true),
+        collapsed: self.provider.parse(self.template.right ? self.template.right.collapsed || false : false, self.data, self, true),
         id: self.root.getControlId(),
         controls: ko.observableArray()
     }
@@ -70,11 +70,11 @@
     self.left = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.left ? self.template.left.classes || {} : {}, self.data, self), self.invertLeftRight),
-        configWidth: wsq.provider.parse(self.template.left ? self.template.left.width || "0px" : "0px", self.data, self),
-        configMinWidth: wsq.provider.parse(self.template.left ? self.template.left.minWidth || null : null, self.data, self),
-        collapsible: wsq.provider.parse(self.template.left ? self.template.left.collapsible || false : false, self.data, self, true),
-        collapsed: wsq.provider.parse(self.template.left ? self.template.left.collapsed || false : false, self.data, self, true),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.left ? self.template.left.classes || {} : {}, self.data, self), self.invertLeftRight),
+        configWidth: self.provider.parse(self.template.left ? self.template.left.width || "0px" : "0px", self.data, self),
+        configMinWidth: self.provider.parse(self.template.left ? self.template.left.minWidth || null : null, self.data, self),
+        collapsible: self.provider.parse(self.template.left ? self.template.left.collapsible || false : false, self.data, self, true),
+        collapsed: self.provider.parse(self.template.left ? self.template.left.collapsed || false : false, self.data, self, true),
         id: self.root.getControlId(),
         controls: ko.observableArray()
     }
@@ -86,9 +86,9 @@
     self.middle = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.middle ? self.template.middle.classes || {} : {}, self.data, self), null),
-        configMinWidth: wsq.provider.parse(self.template.middle ? self.template.middle.minWidth || null : null, self.data, self),
-        configMinHeight: wsq.provider.parse(self.template.middle ? self.template.middle.minHeight || null : null, self.data, self),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.middle ? self.template.middle.classes || {} : {}, self.data, self), null),
+        configMinWidth: self.provider.parse(self.template.middle ? self.template.middle.minWidth || null : null, self.data, self),
+        configMinHeight: self.provider.parse(self.template.middle ? self.template.middle.minHeight || null : null, self.data, self),
         id: self.root.getControlId(),
         controls: ko.observableArray()
     }
@@ -97,10 +97,10 @@
     self.topCollapser = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.topCollapser ? self.template.topCollapser.classes || {} : {}, self.data, self), self.top.collapsed),
-        configHeight: wsq.provider.parse(self.template.topCollapser ? self.template.topCollapser.configHeight || "20px" : "20px", self.data, self),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.topCollapser ? self.template.topCollapser.classes || {} : {}, self.data, self), self.top.collapsed),
+        configHeight: self.provider.parse(self.template.topCollapser ? self.template.topCollapser.configHeight || "20px" : "20px", self.data, self),
         id: self.root.getControlId(),
-        viewTemplate: wsq.provider.parse(self.template.topCollapser ? self.template.topCollapser.viewTemplate || "layoutTopCollapser" : "layoutTopCollapser", self.data, self),
+        viewTemplate: self.provider.parse(self.template.topCollapser ? self.template.topCollapser.viewTemplate || "layoutTopCollapser" : "layoutTopCollapser", self.data, self),
         toggleCollapse: function () {
             self.top.collapsed(!uo(self.top.collapsed));
         }
@@ -110,10 +110,10 @@
     self.bottomCollapser = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.classes || {} : {}, self.data, self), self.bottom.collapsed),
-        configHeight: wsq.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.configHeight || "20px" : "20px", self.data, self),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.classes || {} : {}, self.data, self), self.bottom.collapsed),
+        configHeight: self.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.configHeight || "20px" : "20px", self.data, self),
         id: self.root.getControlId(),
-        viewTemplate: wsq.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.viewTemplate || "layoutBottomCollapser" : "layoutBottomCollapser", self.data, self),
+        viewTemplate: self.provider.parse(self.template.bottomCollapser ? self.template.bottomCollapser.viewTemplate || "layoutBottomCollapser" : "layoutBottomCollapser", self.data, self),
         toggleCollapse: function () {
             self.bottom.collapsed(!uo(self.bottom.collapsed));
         }
@@ -123,10 +123,10 @@
     self.leftCollapser = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.classes || {} : {}, self.data, self), self.left.collapsed),
-        configWidth: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.configWidth || "8px" : "8px", self.data, self),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.classes || {} : {}, self.data, self), self.left.collapsed),
+        configWidth: self.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.configWidth || "8px" : "8px", self.data, self),
         id: self.root.getControlId(),
-        viewTemplate: wsq.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.viewTemplate || "layoutLeftCollapser" : "layoutLeftCollapser", self.data, self),
+        viewTemplate: self.provider.parse(self.template.leftCollapser ? self.template.leftCollapser.viewTemplate || "layoutLeftCollapser" : "layoutLeftCollapser", self.data, self),
         toggleCollapse: function () {
             self.left.collapsed(!uo(self.left.collapsed));
         }
@@ -144,10 +144,10 @@
     self.rightCollapser = {
         parent: self,
         root: self.root,
-        cssClasses: wsq.utils.style.createClassObject(wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.classes || {} : {}, self.data, self), self.right.collapsed),
-        configWidth: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.configWidth || "8px" : "8px", self.data, self),
+        cssClasses: wsq.utils.style.createClassObject(self.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.classes || {} : {}, self.data, self), self.right.collapsed),
+        configWidth: self.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.configWidth || "8px" : "8px", self.data, self),
         id: self.root.getControlId(),
-        viewTemplate: wsq.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.viewTemplate || "layoutRightCollapser" : "layoutRightCollapser", self.data, self),
+        viewTemplate: self.provider.parse(self.template.rightCollapser ? self.template.rightCollapser.viewTemplate || "layoutRightCollapser" : "layoutRightCollapser", self.data, self),
         toggleCollapse: function () {
             self.right.collapsed(!uo(self.right.collapsed));
         }

@@ -19,7 +19,7 @@ wsq.provider = {
             return result;
         }
         else {
-            return ko.isObservable(parsePath) ? parsePath : makeObservable ? ko.observable(parsePath) : parsePath;
+            return ko.isObservable(parsePath) ? parsePath : makeObservable ? parsePath.length ? ko.observableArray(parsePath) : ko.observable(parsePath) : parsePath;
         }
     },
     checkDataContext: function (context, data) {

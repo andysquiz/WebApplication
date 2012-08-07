@@ -16,113 +16,189 @@
     <script src="vms/webapp.js" type="text/javascript"></script>
     <script src="vms/layout.js" type="text/javascript"></script>
     <script src="vms/fillpanel.js" type="text/javascript"></script>
+	<script src="vms/expander.js" type="text/javascript"></script>
+	<script src="vms/repeater.js" type="text/javascript"></script>
     <script src="vms/label.js" type="text/javascript"></script>
     <script src="vms/fluidpanel.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
 </head>
 <script type="text/javascript">
-    
-    var template = {
-        controls: [{
-            type: wsq.controls.layout,
-            minWidth: "600px",
-            minHeight: "400px",
-            invertTopBottom: "$.invertTopBottom",
-            top: {
-                height: "30px",
-                minHeight: "30px",
-                classes: {
-                    "app-top": false,
+
+	var template = {
+		controls: [{
+			type: wsq.controls.layout,
+			minWidth: "600px",
+			minHeight: "400px",
+			invertTopBottom: "$.invertTopBottom",
+			top: {
+				height: "30px",
+				minHeight: "30px",
+				classes: {
+					"app-top": false,
 					"app-top-inverted": true
 				},
-                controls: [{
-                    type: wsq.controls.layout,
-                    right: {
-                        width: "100px",
-                        classes: {
-                            "app-version": false
-                        },
-                        controls: [{
-                            type: wsq.controls.label,
-                            text: "\"version \" + $.version"
-                        }]
-                    },
-                    middle: {
-                        controls: [{
-                            type: wsq.controls.label,
-                            text: "$.name"
-                        }]
-                    }
-                }]
-            },
-            bottom: {
-                height: "30px",
-                classes: {
-                    "app-bottom":false,
+				controls: [{
+					type: wsq.controls.layout,
+					right: {
+						width: "100px",
+						classes: {
+							"app-version": false
+						},
+						controls: [{
+							type: wsq.controls.label,
+							text: "\"version \" + $.version"
+						}]
+					},
+					middle: {
+						controls: [{
+							type: wsq.controls.label,
+							text: "$.name"
+						}]
+					}
+				}]
+			},
+			bottom: {
+				height: "30px",
+				classes: {
+					"app-bottom": false,
 					"app-bottom-inverted": true
 				},
-                controls: [{
-                    type: wsq.controls.fluidpanel,
-                    data: "$.bottom",
+				controls: [{
+					type: wsq.controls.fluidpanel,
+					data: "$.bottom",
 					controls: [{
-                        type: wsq.controls.label,
-                        text: "$.text"
-                    }]
-                }]
-            },
-            middle: {
-                controls: [{
-                    type: wsq.controls.layout,
-                    invertLeftRight: "$.invertLeftRight",
+						type: wsq.controls.label,
+						text: "$.text"
+					}]
+				}]
+			},
+			middle: {
+				controls: [{
+					type: wsq.controls.layout,
+					invertLeftRight: "$.invertLeftRight",
 					left: {
 						collapsible: true,
 						width: "250px",
-                        classes: {
-                            "app-left": false,
-                            "auto": false
-                        },
-						controls: []
+						classes: {
+							"app-left": false,
+							"auto": false
+						},
+						controls: [{
+							type: wsq.controls.repeater,
+							repeatSource: "$.controlGroups",
+							controls: [{
+								type: wsq.controls.expander,
+								collapsed: true,
+								selectorClasses: {
+									"expander-header-selector-uncollapsed": false,
+									"expander-header-selector-collapsed": true
+								},
+								contentClasses:{
+									"expander-content": true
+								},
+								headerClasses:{
+									"expander-header": "all"
+								},
+								headerControls: [{
+									type: wsq.controls.label,
+									text: "$.name"
+								}],
+								contentControls: [{
+									type: wsq.controls.repeater,
+									repeatSource: "$.controls",
+									controls: [{
+										type: wsq.controls.expander,
+										collapsed: true,
+										selectorClasses: {
+											"expander-header-selector-uncollapsed": false,
+											"expander-header-selector-collapsed": true
+										},
+										contentClasses: {
+											"expander-content": true
+										},
+										headerClasses: {
+											"expander-header2": "all"
+										},
+										headerControls:[{
+											type: wsq.controls.label,
+											text: "test"
+										}],
+										contentControls: [{
+											type: wsq.controls.fluidpanel,
+											controls: [{
+												type: wsq.controls.label,
+												text: "$.name"
+											}]
+										}]
+									}]
+								}]
+							}]
+						}]
 					},
-                    leftCollapser: {
-                        classes: {
-                            "app-left-collapser": false,
+					leftCollapser: {
+						classes: {
+							"app-left-collapser": false,
 							"app-left-collapser-collapsed": true
 						}
-                    },
-                    middle:{
-                        controls:[{
-                            type: wsq.controls.fillpanel,
-                            classes: {
-                                "content": true
-                            }
-                        }]
-                    }
-                }]
-            }
-        }]
-    }
+					},
+					middle: {
+						controls: [{
+							type: wsq.controls.fillpanel,
+							classes: {
+								"content": true
+							}
+						}]
+					}
+				}]
+			}
+		}]
+	}
 
-    var data = {
-        name: "Designer Test Application",
-        version: ko.observable("0.0.1"),
-        invertTopBottom: ko.observable(false),
-        invertLeftRight: ko.observable(false),
-        top: {
-            text: "top"
-        },
-        bottom: {
-            text: "Status bar..."
-        },
-        left: {
-            text: "left"
-        },
-        right: {
-            text: "right"
-        },
-        middle: {
-            text: "middle"
-        }
-    }
+	var data = {
+		name: "Designer Test Application",
+		version: ko.observable("0.0.1"),
+		invertTopBottom: ko.observable(false),
+		invertLeftRight: ko.observable(false),
+		controlGroups: ko.observableArray([{
+			name: "Panels",
+			controls: ko.observableArray([{
+				name: "Header Panel"
+			},
+			{
+				name: "Footer Panel"
+			}])
+		},
+		{
+			name: "Input",
+			controls: ko.observableArray([{
+				name: "Text Box"
+			},
+			{
+				name: "Check Box"
+			},
+			{
+				name: "Radio Button"
+			}])
+		},
+		{
+			name: "Flow"
+		}]),
+		top: {
+			text: "top"
+		},
+		bottom: {
+			text: "Status bar..."
+		},
+		left: {
+			text: "left"
+		},
+		right: {
+			text: "right"
+		},
+		middle: {
+			text: "middle"
+		}
+	}
 
 
     function invert() {
@@ -245,11 +321,36 @@
         <!-- /ko -->
     </div>
 </script>
+<script type="text/html" id="expander">
+    <div class="expander">
+		<div>
+			<div data-bind="click: toggleCollapsed, css: cssSelectorClasses" class="expander-header-selector"></div>
+			<div data-bind="foreach: headerControls, css: cssHeaderClasses">
+				<!-- ko template: viewTemplate -->
+				<!-- /ko -->
+			</div>
+		</div>
+        <!-- ko if: !collapsed() -->
+			<div data-bind="foreach: contentControls, css: cssContentClasses">
+				<!-- ko template: viewTemplate -->
+				<!-- /ko -->
+			</div>
+        <!-- /ko -->
+	</div>
+</script>
+<script type="text/html" id="repeater">
+    <!-- ko foreach: items -->
+		<!-- ko foreach: controls -->
+			<!-- ko template: viewTemplate -->
+			<!-- /ko -->
+		<!-- /ko -->
+	<!-- /ko -->
+</script>
 <script type="text/html" id="label">
-    <span data-bind="text: text, wswid: true, wsqdimensions: true"></span>
+    <span data-bind="text: text"></span>
 </script>
 <script type="text/html" id="label2">
-    <span data-bind="text: text, wswid: true, wsqdimensions: true"></span>
+    <span data-bind="text: text"></span>
 	<button onclick="invert2()">invert</button>
 </script>
 <script type="text/html" id="layoutTopCollapser">

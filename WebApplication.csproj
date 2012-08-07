@@ -64,11 +64,13 @@
     <Content Include="Scripts\resizeEvent.js" />
     <Content Include="Scripts\styleextenders.js" />
     <Content Include="Scripts\utils.js" />
+    <Content Include="vms\expander.js" />
     <Content Include="vms\fillpanel.js" />
     <Content Include="vms\label.js" />
     <Content Include="vms\layout.js" />
     <Content Include="Scripts\vm.js" />
     <Content Include="vms\fluidpanel.js" />
+    <Content Include="vms\repeater.js" />
     <Content Include="vms\webapp.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

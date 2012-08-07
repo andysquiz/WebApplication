@@ -124,7 +124,12 @@
 				if (parts.length == 1) {
 					data = data[parts.splice(0, 1)];
 					if (makeObservable && !ko.isObservable(data)) {
-						data = ko.observable(data);
+						if (data.length) {
+							data = ko.observableArray(data);
+						}
+						else {
+							data = ko.observable(data);
+						}
 					}
 				}
 				else {

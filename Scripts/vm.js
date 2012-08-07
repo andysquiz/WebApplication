@@ -31,7 +31,7 @@ wsq.controls.build = function (vm) {
 	return f;
 }
 
-wsq.extenders.base = function (parent) {
+wsq.extenders.base = function (parent, provider) {
 	var self = this;
 
 	self.is = function (type) {
@@ -45,12 +45,11 @@ wsq.extenders.base = function (parent) {
 		}
 		return false;
 	}
-
+	self.provider = provider || wsq.provider;
 	self.parent = parent;
 }
 
-wsq.extenders.container = function (provider) {
+wsq.extenders.container = function () {
     var self = this;
     self.controls = ko.observableArray();
-    self.provider = provider || wsq.provider;
 }

@@ -60,12 +60,15 @@ wsq.utils.sizing.getPercentValue = function (value, parentValue) {
 wsq.utils.style.createClassObject = function (classesToApply, comparisonValue) {
     var classes = {};
     for (var c in classesToApply) {
-        if (classesToApply[c]) {
+        if (classesToApply[c] === true) {
             classes[c] = comparisonValue || true;
         }
-        else {
+        else if(classesToApply[c] === false) {
             classes[c] = ko.computed(function () { return !ko.utils.unwrapObservable(comparisonValue); });
         }
+		else if(classesToApply[c] === "all"){
+			classes[c] = true;
+		}
     }
     return classes;
 }
