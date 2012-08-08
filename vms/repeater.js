@@ -41,7 +41,10 @@
 			}
 		});
 
-		old = arr;
+		old = [];
+		$(arr).each(function () {
+			old.push(this);
+		})
 	}
 
 	if (self.repeatSource) {

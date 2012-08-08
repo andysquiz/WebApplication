@@ -57,6 +57,7 @@
     <Content Include="Scripts\dimensions.js" />
     <Content Include="Scripts\dimensionsExtender.js" />
     <Content Include="Scripts\expressions.js" />
+    <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\idExtender.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
@@ -64,6 +65,7 @@
     <Content Include="Scripts\resizeEvent.js" />
     <Content Include="Scripts\styleextenders.js" />
     <Content Include="Scripts\utils.js" />
+    <Content Include="vms\datatab.js" />
     <Content Include="vms\expander.js" />
     <Content Include="vms\fillpanel.js" />
     <Content Include="vms\label.js" />

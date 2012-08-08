@@ -13,146 +13,147 @@
 	<script src="scripts/dimensions.js" type="text/javascript"></script>
     <script src="scripts/provider.js" type="text/javascript"></script>
     <script src="scripts/expressions.js" type="text/javascript"></script>
+    <script src="scripts/functions.js" type="text/javascript"></script>
     <script src="vms/webapp.js" type="text/javascript"></script>
     <script src="vms/layout.js" type="text/javascript"></script>
     <script src="vms/fillpanel.js" type="text/javascript"></script>
 	<script src="vms/expander.js" type="text/javascript"></script>
 	<script src="vms/repeater.js" type="text/javascript"></script>
+    <script src="vms/datatab.js" type="text/javascript"></script>
     <script src="vms/label.js" type="text/javascript"></script>
     <script src="vms/fluidpanel.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
 </head>
 <script type="text/javascript">
 
-	var template = {
-		controls: [{
-			type: wsq.controls.layout,
-			minWidth: "600px",
-			minHeight: "400px",
-			invertTopBottom: "$.invertTopBottom",
-			top: {
-				height: "30px",
-				minHeight: "30px",
-				classes: {
-					"app-top": false,
-					"app-top-inverted": true
-				},
-				controls: [{
-					type: wsq.controls.layout,
-					right: {
-						width: "100px",
-						classes: {
-							"app-version": false
-						},
-						controls: [{
-							type: wsq.controls.label,
-							text: "\"version \" + $.version"
-						}]
-					},
-					middle: {
-						controls: [{
-							type: wsq.controls.label,
-							text: "$.name"
-						}]
-					}
-				}]
-			},
-			bottom: {
-				height: "30px",
-				classes: {
-					"app-bottom": false,
-					"app-bottom-inverted": true
-				},
-				controls: [{
-					type: wsq.controls.fluidpanel,
-					data: "$.bottom",
-					controls: [{
-						type: wsq.controls.label,
-						text: "$.text"
-					}]
-				}]
-			},
-			middle: {
-				controls: [{
-					type: wsq.controls.layout,
-					invertLeftRight: "$.invertLeftRight",
-					left: {
-						collapsible: true,
-						width: "250px",
-						classes: {
-							"app-left": false,
-							"auto": false
-						},
-						controls: [{
-							type: wsq.controls.repeater,
-							repeatSource: "$.controlGroups",
-							controls: [{
-								type: wsq.controls.expander,
-								collapsed: true,
-								selectorClasses: {
-									"expander-header-selector-uncollapsed": false,
-									"expander-header-selector-collapsed": true
-								},
-								contentClasses:{
-									"expander-content": true
-								},
-								headerClasses:{
-									"expander-header": "all"
-								},
-								headerControls: [{
-									type: wsq.controls.label,
-									text: "$.name"
-								}],
-								contentControls: [{
-									type: wsq.controls.repeater,
-									repeatSource: "$.controls",
-									controls: [{
-										type: wsq.controls.expander,
-										collapsed: true,
-										selectorClasses: {
-											"expander-header-selector-uncollapsed": false,
-											"expander-header-selector-collapsed": true
-										},
-										contentClasses: {
-											"expander-content": true
-										},
-										headerClasses: {
-											"expander-header2": "all"
-										},
-										headerControls:[{
-											type: wsq.controls.label,
-											text: "test"
-										}],
-										contentControls: [{
-											type: wsq.controls.fluidpanel,
-											controls: [{
-												type: wsq.controls.label,
-												text: "$.name"
-											}]
-										}]
-									}]
-								}]
-							}]
-						}]
-					},
-					leftCollapser: {
-						classes: {
-							"app-left-collapser": false,
-							"app-left-collapser-collapsed": true
-						}
-					},
-					middle: {
-						controls: [{
-							type: wsq.controls.fillpanel,
-							classes: {
-								"content": true
-							}
-						}]
-					}
-				}]
-			}
-		}]
-	}
+    var template = {
+        controls: [{
+            type: wsq.controls.layout,
+            minWidth: "600px",
+            minHeight: "400px",
+            invertTopBottom: "$.invertTopBottom",
+            top: {
+                height: "30px",
+                minHeight: "30px",
+                classes: {
+                    "app-top": false,
+                    "app-top-inverted": true
+                },
+                controls: [{
+                    type: wsq.controls.layout,
+                    right: {
+                        width: "100px",
+                        classes: {
+                            "app-version": false
+                        },
+                        controls: [{
+                            type: wsq.controls.label,
+                            text: "\"version \" + $.version"
+                        }]
+                    },
+                    middle: {
+                        controls: [{
+                            type: wsq.controls.label,
+                            viewTemplate: "label2",
+                            text: "$.name"
+                        }]
+                    }
+                }]
+            },
+            bottom: {
+                height: "30px",
+                classes: {
+                    "app-bottom": false,
+                    "app-bottom-inverted": true
+                },
+                controls: [{
+                    type: wsq.controls.fluidpanel,
+                    data: "$.bottom",
+                    controls: [{
+                        type: wsq.controls.label,
+                        text: "$.text"
+                    }]
+                }]
+            },
+            middle: {
+                controls: [{
+                    type: wsq.controls.layout,
+                    invertLeftRight: "$.invertLeftRight",
+                    left: {
+                        collapsible: true,
+                        width: "250px",
+                        classes: {
+                            "app-left": false,
+                            "auto": false
+                        },
+                        controls: [{
+                            type: wsq.controls.repeater,
+                            repeatSource: "$.controlGroups",
+                            controls: [{
+                                type: wsq.controls.expander,
+                                collapsed: false,
+                                selectorClasses: {
+                                    "expander-header-selector-uncollapsed": false,
+                                    "expander-header-selector-collapsed": true
+                                },
+                                contentClasses: {
+                                    "expander-content": true
+                                },
+                                headerClasses: {
+                                    "expander-header": "all"
+                                },
+                                headerControls: [{
+                                    type: wsq.controls.label,
+                                    text: "$.name"
+                                }],
+                                contentControls: [{
+                                    type: wsq.controls.repeater,
+                                    repeatSource: "$.controls",
+                                    controls: [{
+                                        type: wsq.controls.expander,
+                                        collapsed: true,
+                                        selectorClasses: {
+                                            "expander-header-selector-uncollapsed": false,
+                                            "expander-header-selector-collapsed": true
+                                        },
+                                        contentClasses: {
+                                            "expander-content": true
+                                        },
+                                        headerClasses: {
+                                            "expander-header2": "all"
+                                        },
+                                        headerControls: [{
+                                            type: wsq.controls.label,
+                                            text: "test"
+                                        }],
+                                        contentControls: [{
+                                            type: wsq.controls.fluidpanel,
+                                            controls: [{
+                                                type: wsq.controls.label,
+                                                text: "$.name"
+                                            }]
+                                        }]
+                                    }]
+                                }]
+                            }]
+                        }]
+                    },
+                    leftCollapser: {
+                        classes: {
+                            "app-left-collapser": false,
+                            "app-left-collapser-collapsed": true
+                        }
+                    },
+                    middle: {
+                        controls: [{
+                            type: wsq.controls.datatab,
+                            repeatSource: "join(controlitems($.forms, #formTemplate, $.name),controlitems($.workflows, #workflowTemplate, $.name))"
+                        }]
+                    }
+                }]
+            }
+        }]
+    }
 
 	var data = {
 		name: "Designer Test Application",
@@ -168,6 +169,15 @@
 				name: "Footer Panel"
 			}])
 		},
+        {
+            name: "New Panels",
+            controls: ko.observableArray([{
+                name: "Another Panel"
+            },
+			{
+			    name: "Posey's Panel"
+			}])
+        },
 		{
 			name: "Input",
 			controls: ko.observableArray([{
@@ -200,14 +210,15 @@
 		}
 	}
 
+	function addgroup() {
+		var name = prompt("name");
+		var obj = { name: name, controls: ko.observableArray([{name: "dynamic test"}])};
+		data.controlGroups.push(obj);
+	}
 
-    function invert() {
-    	data.invertTopBottom(data.invertTopBottom() ? false : true);
-    }
-
-    function invert2() {
-    	data.invertLeftRight(data.invertLeftRight() ? false : true);
-    }
+	function popgroup() {
+		data.controlGroups.pop();
+	}
 </script>
 <script type="text/html" id="app">
 	<div data-bind="style: { height: dimensions.height, width: dimensions.width}">
@@ -351,7 +362,8 @@
 </script>
 <script type="text/html" id="label2">
     <span data-bind="text: text"></span>
-	<button onclick="invert2()">invert</button>
+	<button onclick="addgroup()" style="padding:0; line-height: normal">Add Group</button>
+	<button onclick="popgroup()" style="padding:0; line-height: normal">Pop Group</button>
 </script>
 <script type="text/html" id="layoutTopCollapser">
     <div class="clear" data-bind="click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Top Collapser</div>
