@@ -71,7 +71,7 @@
                     data: "$.bottom",
                     controls: [{
                         type: wsq.controls.label,
-                        text: "$.text"
+                        text: "join(1,2,3)"
                     }]
                 }]
             },
