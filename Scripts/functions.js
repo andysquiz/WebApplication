@@ -1,8 +1,12 @@
 ﻿wsq.functions = {
-	join: function () {
+    join: function (arguments, data) {
 
-	},
-	controlitems: function () {
-
-	}
+    },
+    controlitems: function (arguments, data) {
+        var a = arguments;
+        return ko.computed(function () {
+            var newItem = { args: a };
+            return newItem;
+        });
+    }
 }

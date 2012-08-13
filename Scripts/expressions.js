@@ -28,11 +28,15 @@
                 if (res == wsq.expressions.state.completeStripChar) {
                     expression.splice(0, 1);
                 }
+
                 tokens.push(tokeniser.getToken());
                 tokeniser = null;
             }
         }
-        tokens.push(tokeniser.getToken());
+        if (tokeniser != null) {
+            tokens.push(tokeniser.getToken());
+            tokeniser = null;
+        }
         return tokens;
     },
     isFunction: function (string) {
@@ -180,7 +184,8 @@
         },
         getToken: function (tokens, data, controlContext, makeObservable, result) {
             var token = tokens.pop();
-            var parts = token.value.split(".");
+            var tokenValue = token.value;
+            var parts = tokenValue.split(".");
             var newContext = wsq.provider.checkDataContext.call(controlContext, parts[0]);
             if (newContext) {
                 data = newContext;
@@ -225,7 +230,17 @@
         },
         functionToken: function (tokens, data, controlContext, makeObservable, result) {
             var token = tokens.pop();
-            return token.arguments.length;
+            var parsedArguments = [];
+            for (var a = 0; a < token.arguments.length; a++) {
+                var args = token.arguments[a];
+                var arg = null;
+                while (args.length > 0) {
+                    arg = args[args.length - 1].type(args, data, controlContext, makeObservable, arg);
+                }
+                parsedArguments.push(arg);
+            }
+
+            return wsq.functions[token.func](parsedArguments, data);
         }
     }
 }

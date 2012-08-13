@@ -147,7 +147,7 @@
                     middle: {
                         controls: [{
                             type: wsq.controls.datatab,
-                            repeatSource: "join(controlitems($.forms, #formTemplate, $.name),controlitems($.workflows, #workflowTemplate, $.name))"
+                            repeatSource: "join(controlitems($.forms, #formTemplate, \"$.name\"),controlitems($.workflows, #workflowTemplate, \"$.name\"))"
                         }]
                     }
                 }]
@@ -158,6 +158,8 @@
 	var data = {
 		name: "Designer Test Application",
 		version: ko.observable("0.0.1"),
+		forms: ko.observableArray([]),
+		workflows: ko.observableArray([]),
 		invertTopBottom: ko.observable(false),
 		invertLeftRight: ko.observable(false),
 		controlGroups: ko.observableArray([{
