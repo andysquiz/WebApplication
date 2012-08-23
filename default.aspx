@@ -147,7 +147,7 @@
                     middle: {
                         controls: [{
                             type: wsq.controls.datatab,
-                            repeatSource: "join(controlitems($.forms, #formTemplate, \"$.name\"),controlitems($.workflows, #workflowTemplate, \"$.name\"))"
+                            repeatSource: "join(controlitems($.forms, #.templates.formDataTab,),controlitems($.workflows, #.templates.workflowDataTab))"
                         }]
                     }
                 }]
@@ -155,29 +155,52 @@
         }]
     }
 
-	var data = {
-		name: "Designer Test Application",
-		version: ko.observable("0.0.1"),
-		forms: ko.observableArray([]),
-		workflows: ko.observableArray([]),
-		invertTopBottom: ko.observable(false),
-		invertLeftRight: ko.observable(false),
-		controlGroups: ko.observableArray([{
-			name: "Panels",
-			controls: ko.observableArray([{
-				name: "Header Panel"
-			},
+    var formData = {
+    	templates: {
+    		formDataTab: {
+				type: "form",
+				name: "New Form"
+    		},
+    		workflowDataTab: {
+    			type: "workflow",
+    			name: "New Workflow"
+    		}
+    	}
+    }
+
+    var data = {
+    	name: "Designer Test Application",
+    	version: ko.observable("0.0.1"),
+    	forms: ko.observableArray([{
+    		name: "f1"
+    	},
+		{
+			name: "f2"
+		}]),
+    	workflows: ko.observableArray([{
+    		name: "w1"
+    	},
+		{
+			name: "w2"
+		}]),
+    	invertTopBottom: ko.observable(false),
+    	invertLeftRight: ko.observable(false),
+    	controlGroups: ko.observableArray([{
+    		name: "Panels",
+    		controls: ko.observableArray([{
+    			name: "Header Panel"
+    		},
 			{
 				name: "Footer Panel"
 			}])
-		},
+    	},
         {
-            name: "New Panels",
-            controls: ko.observableArray([{
-                name: "Another Panel"
-            },
+        	name: "New Panels",
+        	controls: ko.observableArray([{
+        		name: "Another Panel"
+        	},
 			{
-			    name: "Posey's Panel"
+				name: "Posey's Panel"
 			}])
         },
 		{
@@ -195,22 +218,22 @@
 		{
 			name: "Flow"
 		}]),
-		top: {
-			text: "top"
-		},
-		bottom: {
-			text: "Status bar..."
-		},
-		left: {
-			text: "left"
-		},
-		right: {
-			text: "right"
-		},
-		middle: {
-			text: "middle"
-		}
-	}
+    	top: {
+    		text: "top"
+    	},
+    	bottom: {
+    		text: "Status bar..."
+    	},
+    	left: {
+    		text: "left"
+    	},
+    	right: {
+    		text: "right"
+    	},
+    	middle: {
+    		text: "middle"
+    	}
+    }
 
 	function addgroup() {
 		var name = prompt("name");

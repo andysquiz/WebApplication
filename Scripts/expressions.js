@@ -54,6 +54,11 @@
                     return wsq.expressions.tokenisers.get;
                 }
                 break;
+            case "#":
+            	if (expression.length > 0 && expression[0] != "#") {
+            		return wsq.expressions.tokenisers.get;
+            	}
+            	break;
             case "+":
                 return wsq.expressions.tokenisers.add;
             default:
