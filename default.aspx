@@ -20,6 +20,7 @@
 	<script src="vms/expander.js" type="text/javascript"></script>
 	<script src="vms/repeater.js" type="text/javascript"></script>
     <script src="vms/datatab.js" type="text/javascript"></script>
+    <script src="vms/datapanel.js" type="text/javascript"></script>
     <script src="vms/label.js" type="text/javascript"></script>
     <script src="vms/fluidpanel.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
@@ -146,8 +147,24 @@
                     },
                     middle: {
                         controls: [{
-                            type: wsq.controls.datatab,
-                            repeatSource: "join(controlitems($.forms, #.templates.formDataTab,),controlitems($.workflows, #.templates.workflowDataTab))"
+                            type: wsq.controls.layout,
+                            top: {
+                                height: "20px",
+                                controls: [{
+                                    type: wsq.controls.datatab,
+                                    repeatSource: "join(controlitems($.forms, #.templates.formDataTab),controlitems($.workflows, #.templates.workflowDataTab))",
+                                    selectedItem: "$root.selectedFile"
+                                }]
+                            },
+                            middle: {
+                                controls: [{
+                                    type: wsq.controls.datapanel,
+                                    dataSource: "$root.selectedFile",
+                                    classes: {
+                                        "grey": true
+                                    }
+                                }]
+                            }
                         }]
                     }
                 }]
@@ -156,32 +173,59 @@
     }
 
     var formData = {
-    	templates: {
-    		formDataTab: {
-				type: "form",
-				name: "New Form"
-    		},
-    		workflowDataTab: {
-    			type: "workflow",
-    			name: "New Workflow"
-    		}
-    	}
+        templates: {
+            formDataTab: {
+                type: "form",
+                header: {
+                    controls: [{
+                        type: wsq.controls.label,
+                        text: "$.name"
+                    }]
+                },
+                body: {
+                    controls: [{
+                        type: wsq.controls.label,
+                        text: "$.description"
+                    }]
+                }
+            },
+            workflowDataTab: {
+                type: "workflow",
+                header: {
+                    controls: [{
+                        type: wsq.controls.label,
+                        text: "$.name"
+                    }]
+                },
+                body: {
+                    controls: [{
+                        type: wsq.controls.label,
+                        text: "\"w \" + $.description"
+                    }]
+                }
+            }
+        }
     }
 
     var data = {
     	name: "Designer Test Application",
     	version: ko.observable("0.0.1"),
+        selectedFile: ko.observable(null),
     	forms: ko.observableArray([{
-    		name: "f1"
+    	    name: "f1",
+            description: "form 1"
     	},
 		{
-			name: "f2"
+		    name: "f2",
+		    description: "form 2"
 		}]),
     	workflows: ko.observableArray([{
-    		name: "w1"
+    		name: "w1",
+            description: "workflow 1"
     	},
 		{
-			name: "w2"
+			name: "w2",
+            description: "workflow 2"
 		}]),
     	invertTopBottom: ko.observable(false),
     	invertLeftRight: ko.observable(false),
@@ -243,7 +287,13 @@
 
 	function popgroup() {
 		data.controlGroups.pop();
-	}
+}
+
+function addform() {
+    var name = prompt("name");
+    var desc = prompt("description");
+    data.forms.push({ name: name, description: desc });
+}
 </script>
 <script type="text/html" id="app">
 	<div data-bind="style: { height: dimensions.height, width: dimensions.width}">
@@ -351,10 +401,30 @@
         <!-- /ko -->
     </div>
 </script>
+<script type="text/html" id="datatab">
+    <ul data-bind="foreach: tabs" class="datatab">
+        <li data-bind="css: {'selected': item == $parent.selectedItem()}, click: click">
+            <!-- ko foreach:controls -->
+                <!-- ko template: viewTemplate --><!-- /ko -->
+            <!-- /ko -->
+        </li>
+    </ul>
+</script>
 <script type="text/html" id="fillpanel">
     <div data-bind="foreach: controls, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">
         <!-- ko template: viewTemplate -->
         <!-- /ko -->
+    </div>
+</script>
+<script type="text/html" id="datapanelitem">
+    <div data-bind="foreach: controls">
+        <!-- ko template: viewTemplate -->
+        <!-- /ko -->
+    </div>
+</script>
+<script type="text/html" id="datapanel">
+    <div data-bind="css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">
+        <!-- ko template: {name: "datapanelitem", data: control} --><!-- /ko -->
     </div>
 </script>
 <script type="text/html" id="expander">
@@ -389,6 +459,7 @@
     <span data-bind="text: text"></span>
 	<button onclick="addgroup()" style="padding:0; line-height: normal">Add Group</button>
 	<button onclick="popgroup()" style="padding:0; line-height: normal">Pop Group</button>
+    <button onclick="addform()" style="padding:0; line-height: normal">Add Form</button>
 </script>
 <script type="text/html" id="layoutTopCollapser">
     <div class="clear" data-bind="click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Top Collapser</div>

@@ -58,7 +58,7 @@
 		item.template = self.template;
 		item.data = data;
 		wsq.controls.build(item)(wsq.extenders.base, self)(wsq.extenders.container);
-		self.root = self.parent.root;
+		item.root = self.root;
 		wsq.controls.createControls.call(self, item.controls, template.controls, item.data);
 		return item;
 	};

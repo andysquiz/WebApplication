@@ -177,3 +177,29 @@ div.expander-content
     clear: both;
     padding: 2px 2px 2px 20px;
 }
+
+ul.datatab
+{
+    margin: 0;
+    padding: 0;
+}
+
+ul.datatab li
+{
+    width: 100px;
+    background-color: Blue;
+    color: White;
+    display: inline-block;
+    cursor: pointer;
+}
+
+ul.datatab li.selected
+{
+    background-color: Yellow;
+    color: Black;
+}
+
+.grey
+{
+    background-color: Gray;   
+}

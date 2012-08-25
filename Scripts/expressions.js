@@ -55,10 +55,10 @@
                 }
                 break;
             case "#":
-            	if (expression.length > 0 && expression[0] != "#") {
-            		return wsq.expressions.tokenisers.get;
-            	}
-            	break;
+                if (expression.length > 0 && expression[0] != "#") {
+                    return wsq.expressions.tokenisers.get;
+                }
+                break;
             case "+":
                 return wsq.expressions.tokenisers.add;
             default:
@@ -198,10 +198,11 @@
             parts.splice(0, 1);
 
             while (parts.length > 0 && data) {
+                data = ko.utils.unwrapObservable(data);
                 if (parts.length == 1) {
                     data = data[parts.splice(0, 1)];
                     if (makeObservable && !ko.isObservable(data)) {
-                        if (data.length) {
+                        if (typeof data == "object" && data.length) {
                             data = ko.observableArray(data);
                         }
                         else {

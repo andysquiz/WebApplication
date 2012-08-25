@@ -65,6 +65,7 @@
     <Content Include="Scripts\resizeEvent.js" />
     <Content Include="Scripts\styleextenders.js" />
     <Content Include="Scripts\utils.js" />
+    <Content Include="vms\dataPanel.js" />
     <Content Include="vms\datatab.js" />
     <Content Include="vms\expander.js" />
     <Content Include="vms\fillpanel.js" />

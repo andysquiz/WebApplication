@@ -24,10 +24,11 @@
 
 			var outputItems = [];
 			for (var i = 0; i < items.length; i++) {
-				var newItem = {
+				var newItem = ko.observable({
 					data: items[i],
 					template: template
-				}
+				})
+
 				outputItems.push(newItem);
 			}
 
