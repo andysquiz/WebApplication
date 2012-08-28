@@ -8,8 +8,10 @@
     self.data = data;
     self.root = self.parent.root;
     self.dataSource = wsq.provider.parse(self.template.repeatSource, self.data, self, true);
+
     self.tabs = ko.observableArray();
     self.selectedItem = wsq.provider.parse(self.template.selectedItem, self.data, self, true);
+    self.dimensions = new wsq.dimensions(self, parent.dimensions);
     var oldData = [];
 
     function subFunc(newVal) {
@@ -63,11 +65,16 @@
         tab.data = obj.data;
         wsq.controls.build(tab)(wsq.extenders.base, self)(wsq.extenders.container);
         tab.root = self.root;
+        tab.dimensions = new wsq.dimensions(tab, self.dimensions);
         wsq.controls.createControls.call(self, tab.controls, tab.template.header.controls, tab.data);
         tab.name = wsq.provider.parse(tab.template.name, tab.data, tab, true);
         tab.click = function () {
             tab.parent.selectedItem(tab.item);
-        }
+        };
+        tab.selected = ko.computed(function () {
+            return tab.item == ko.utils.unwrapObservable(tab.parent.selectedItem);
+        });
+        tab.cssClasses = wsq.utils.style.createClassObject(tab.provider.parse(tab.template.classes, tab.data, self), tab.selected);
         return tab;
     }
 

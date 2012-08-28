@@ -182,24 +182,53 @@ ul.datatab
 {
     margin: 0;
     padding: 0;
+    border-bottom: 1px solid #999999;
 }
 
 ul.datatab li
 {
     width: 100px;
-    background-color: Blue;
-    color: White;
     display: inline-block;
     cursor: pointer;
+    padding: 2px;
+}
+
+ul.datatab li.datatabtop
+{
+    border-left: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    background-color: #eeeeee;
+    color: #999999;
+}
+
+ul.datatab li.datatabtop:hover
+{
+    background-color: #dddddd;
+    color: #777777;
 }
 
 ul.datatab li.selected
 {
-    background-color: Yellow;
-    color: Black;
+    background-color: #f9f9f9;
+    color: #444444;
+    border-left: 1px solid #999999;
+    border-top: 1px solid #999999;
+    border-right: 1px solid #999999;
 }
 
-.grey
+ul.datatab li.selected:hover
 {
-    background-color: Gray;   
+    background-color: #f9f9f9;
+    color: #444444;
+    border-left: 1px solid #999999;
+    border-top: 1px solid #999999;
+    border-right: 1px solid #999999;
+    border-bottom: 0;
+}
+
+div.datapanel
+{
+    background-color: #f9f9f9;
+    padding: 5px;
 }

@@ -149,11 +149,14 @@
                         controls: [{
                             type: wsq.controls.layout,
                             top: {
-                                height: "20px",
+                                height: "26px",
                                 controls: [{
                                     type: wsq.controls.datatab,
                                     repeatSource: "join(controlitems($.forms, #.templates.formDataTab),controlitems($.workflows, #.templates.workflowDataTab))",
-                                    selectedItem: "$root.selectedFile"
+                                    selectedItem: "$root.selectedFile",
+                                    classes: {
+                                        dataTabTop: true
+                                    }
                                 }]
                             },
                             middle: {
@@ -161,7 +164,7 @@
                                     type: wsq.controls.datapanel,
                                     dataSource: "$root.selectedFile",
                                     classes: {
-                                        "grey": true
+                                        datapanel: true
                                     }
                                 }]
                             }
@@ -176,6 +179,10 @@
         templates: {
             formDataTab: {
                 type: "form",
+                classes: {
+                    datatabtop: "all",
+                    selected: true
+                },
                 header: {
                     controls: [{
                         type: wsq.controls.label,
@@ -191,6 +198,10 @@
             },
             workflowDataTab: {
                 type: "workflow",
+                classes: {
+                    datatabtop: "all",
+                    selected: true
+                },
                 header: {
                     controls: [{
                         type: wsq.controls.label,
@@ -402,13 +413,11 @@ function addform() {
     </div>
 </script>
 <script type="text/html" id="datatab">
-    <ul data-bind="foreach: tabs" class="datatab">
-        <li data-bind="css: {'selected': item == $parent.selectedItem()}, click: click">
+    <ul data-bind="foreach: tabs" class="datatab"><li data-bind="css: cssClasses, click: click, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">
             <!-- ko foreach:controls -->
                 <!-- ko template: viewTemplate --><!-- /ko -->
             <!-- /ko -->
-        </li>
-    </ul>
+        </li></ul>
 </script>
 <script type="text/html" id="fillpanel">
     <div data-bind="foreach: controls, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">
