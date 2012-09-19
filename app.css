@@ -182,7 +182,8 @@ ul.datatab
 {
     margin: 0;
     padding: 0;
-    border-bottom: 1px solid #999999;
+    overflow: hidden;
+    display: inline-block;
 }
 
 ul.datatab li
@@ -190,45 +191,54 @@ ul.datatab li
     width: 100px;
     display: inline-block;
     cursor: pointer;
-    padding: 2px;
+    padding: 2px 2px 0 2px;
+    margin: 0 2px 0 0;
 }
 
 ul.datatab li.datatabtop
 {
-    border-left: 1px solid #cccccc;
-    border-top: 1px solid #cccccc;
-    border-right: 1px solid #cccccc;
+    border-top: 3px solid #eeeeee;
+
     background-color: #eeeeee;
     color: #999999;
 }
 
 ul.datatab li.datatabtop:hover
 {
-    background-color: #dddddd;
+    background-color: #e9e9e9;
     color: #777777;
+    border-top: 3px solid #c9c9c9;
 }
 
 ul.datatab li.selected
 {
     background-color: #f9f9f9;
     color: #444444;
-    border-left: 1px solid #999999;
-    border-top: 1px solid #999999;
-    border-right: 1px solid #999999;
+   
+    border-top: 3px solid #777777;
 }
 
 ul.datatab li.selected:hover
 {
     background-color: #f9f9f9;
     color: #444444;
-    border-left: 1px solid #999999;
-    border-top: 1px solid #999999;
-    border-right: 1px solid #999999;
-    border-bottom: 0;
+
+    border-top: 3px solid #777777;
 }
 
 div.datapanel
 {
     background-color: #f9f9f9;
     padding: 5px;
+}
+
+div.content-top
+{
+    background-color: #dddddd;
+}
+
+div.tab-page-container
+{
+	float: right;
+	width: 40px;
 }

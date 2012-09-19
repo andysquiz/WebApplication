@@ -27,153 +27,159 @@
 </head>
 <script type="text/javascript">
 
-    var template = {
-        controls: [{
-            type: wsq.controls.layout,
-            minWidth: "600px",
-            minHeight: "400px",
-            invertTopBottom: "$.invertTopBottom",
-            top: {
-                height: "30px",
-                minHeight: "30px",
-                classes: {
-                    "app-top": false,
-                    "app-top-inverted": true
-                },
-                controls: [{
-                    type: wsq.controls.layout,
-                    right: {
-                        width: "100px",
-                        classes: {
-                            "app-version": false
-                        },
-                        controls: [{
-                            type: wsq.controls.label,
-                            text: "\"version \" + $.version"
-                        }]
-                    },
-                    middle: {
-                        controls: [{
-                            type: wsq.controls.label,
-                            viewTemplate: "label2",
-                            text: "$.name"
-                        }]
-                    }
-                }]
-            },
-            bottom: {
-                height: "30px",
-                classes: {
-                    "app-bottom": false,
-                    "app-bottom-inverted": true
-                },
-                controls: [{
-                    type: wsq.controls.fluidpanel,
-                    data: "$.bottom",
-                    controls: [{
-                        type: wsq.controls.label,
-                        text: "join(1,2,3)"
-                    }]
-                }]
-            },
-            middle: {
-                controls: [{
-                    type: wsq.controls.layout,
-                    invertLeftRight: "$.invertLeftRight",
-                    left: {
-                        collapsible: true,
-                        width: "250px",
-                        classes: {
-                            "app-left": false,
-                            "auto": false
-                        },
-                        controls: [{
-                            type: wsq.controls.repeater,
-                            repeatSource: "$.controlGroups",
-                            controls: [{
-                                type: wsq.controls.expander,
-                                collapsed: false,
-                                selectorClasses: {
-                                    "expander-header-selector-uncollapsed": false,
-                                    "expander-header-selector-collapsed": true
-                                },
-                                contentClasses: {
-                                    "expander-content": true
-                                },
-                                headerClasses: {
-                                    "expander-header": "all"
-                                },
-                                headerControls: [{
-                                    type: wsq.controls.label,
-                                    text: "$.name"
-                                }],
-                                contentControls: [{
-                                    type: wsq.controls.repeater,
-                                    repeatSource: "$.controls",
-                                    controls: [{
-                                        type: wsq.controls.expander,
-                                        collapsed: true,
-                                        selectorClasses: {
-                                            "expander-header-selector-uncollapsed": false,
-                                            "expander-header-selector-collapsed": true
-                                        },
-                                        contentClasses: {
-                                            "expander-content": true
-                                        },
-                                        headerClasses: {
-                                            "expander-header2": "all"
-                                        },
-                                        headerControls: [{
-                                            type: wsq.controls.label,
-                                            text: "test"
-                                        }],
-                                        contentControls: [{
-                                            type: wsq.controls.fluidpanel,
-                                            controls: [{
-                                                type: wsq.controls.label,
-                                                text: "$.name"
-                                            }]
-                                        }]
-                                    }]
-                                }]
-                            }]
-                        }]
-                    },
-                    leftCollapser: {
-                        classes: {
-                            "app-left-collapser": false,
-                            "app-left-collapser-collapsed": true
-                        }
-                    },
-                    middle: {
-                        controls: [{
-                            type: wsq.controls.layout,
-                            top: {
-                                height: "26px",
-                                controls: [{
-                                    type: wsq.controls.datatab,
-                                    repeatSource: "join(controlitems($.forms, #.templates.formDataTab),controlitems($.workflows, #.templates.workflowDataTab))",
-                                    selectedItem: "$root.selectedFile",
-                                    classes: {
-                                        dataTabTop: true
-                                    }
-                                }]
-                            },
-                            middle: {
-                                controls: [{
-                                    type: wsq.controls.datapanel,
-                                    dataSource: "$root.selectedFile",
-                                    classes: {
-                                        datapanel: true
-                                    }
-                                }]
-                            }
-                        }]
-                    }
-                }]
-            }
-        }]
-    }
+	var template = {
+		controls: [{
+			type: wsq.controls.layout,
+			minWidth: "600px",
+			minHeight: "400px",
+			invertTopBottom: "$.invertTopBottom",
+			top: {
+				height: "30px",
+				minHeight: "30px",
+				classes: {
+					"app-top": false,
+					"app-top-inverted": true
+				},
+				controls: [{
+					type: wsq.controls.layout,
+					right: {
+						width: "100px",
+						classes: {
+							"app-version": false
+						},
+						controls: [{
+							type: wsq.controls.label,
+							text: "\"version \" + $.version"
+						}]
+					},
+					middle: {
+						controls: [{
+							type: wsq.controls.label,
+							viewTemplate: "label2",
+							text: "$.name"
+						}]
+					}
+				}]
+			},
+			bottom: {
+				height: "30px",
+				classes: {
+					"app-bottom": false,
+					"app-bottom-inverted": true
+				},
+				controls: [{
+					type: wsq.controls.fluidpanel,
+					data: "$.bottom",
+					controls: [{
+						type: wsq.controls.label,
+						text: "join(1,2,3)"
+					}]
+				}]
+			},
+			middle: {
+				controls: [{
+					type: wsq.controls.layout,
+					invertLeftRight: "$.invertLeftRight",
+					left: {
+						collapsible: true,
+						width: "250px",
+						classes: {
+							"app-left": false,
+							"auto": false
+						},
+						controls: [{
+							type: wsq.controls.repeater,
+							repeatSource: "$.controlGroups",
+							controls: [{
+								type: wsq.controls.expander,
+								collapsed: false,
+								selectorClasses: {
+									"expander-header-selector-uncollapsed": false,
+									"expander-header-selector-collapsed": true
+								},
+								contentClasses: {
+									"expander-content": true
+								},
+								headerClasses: {
+									"expander-header": "all"
+								},
+								headerControls: [{
+									type: wsq.controls.label,
+									text: "$.name"
+								}],
+								contentControls: [{
+									type: wsq.controls.repeater,
+									repeatSource: "$.controls",
+									controls: [{
+										type: wsq.controls.expander,
+										collapsed: true,
+										selectorClasses: {
+											"expander-header-selector-uncollapsed": false,
+											"expander-header-selector-collapsed": true
+										},
+										contentClasses: {
+											"expander-content": true
+										},
+										headerClasses: {
+											"expander-header2": "all"
+										},
+										headerControls: [{
+											type: wsq.controls.label,
+											text: "test"
+										}],
+										contentControls: [{
+											type: wsq.controls.fluidpanel,
+											controls: [{
+												type: wsq.controls.label,
+												text: "$.name"
+											}]
+										}]
+									}]
+								}]
+							}]
+						}]
+					},
+					leftCollapser: {
+						classes: {
+							"app-left-collapser": false,
+							"app-left-collapser-collapsed": true
+						}
+					},
+					middle: {
+						controls: [{
+							type: wsq.controls.layout,
+							top: {
+								height: "25px",
+								classes: {
+									"content-top": false
+								},
+								controls: [{
+									type: wsq.controls.datatab,
+									repeatSource: "join(controlitems($.forms, #.templates.formDataTab),controlitems($.workflows, #.templates.workflowDataTab))",
+									selectedItem: "$root.selectedFile",
+									classes: {
+										dataTabTop: true
+									},
+									right: {
+										width: "96px"
+									}
+								}]
+							},
+							middle: {
+								controls: [{
+									type: wsq.controls.datapanel,
+									dataSource: "$root.selectedFile",
+									classes: {
+										datapanel: true
+									}
+								}]
+							}
+						}]
+					}
+				}]
+			}
+		}]
+	}
 
     var formData = {
         templates: {
@@ -212,7 +218,12 @@
                     controls: [{
                         type: wsq.controls.label,
                         text: "\"w \" + $.description"
-                    }]
+                       },
+					{
+						type: wsq.controls.label,
+						text: "template test"
+					}
+					]
                 }
             }
         }
@@ -412,12 +423,30 @@ function addform() {
         <!-- /ko -->
     </div>
 </script>
-<script type="text/html" id="datatab">
-    <ul data-bind="foreach: tabs" class="datatab"><li data-bind="css: cssClasses, click: click, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">
+<script type="text/html" id="datatabworking">
+    <ul data-bind="foreach: tabs, wsqid: true, wsqdimensions: true, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}" class="datatab" ><li data-bind="css: cssClasses, click: click">
             <!-- ko foreach:controls -->
                 <!-- ko template: viewTemplate --><!-- /ko -->
             <!-- /ko -->
         </li></ul>
+</script>
+<script type="text/html" id="datatab">
+	<div data-bind="wsqid: true, wsqdimensions: true, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">
+		<div style="display: inline-block; overflow: hidden" data-bind="wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: left.dimensions}">
+			<ul style="white-space: nowrap; " class="datatab" data-bind="foreach: tabs, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {value: left.actualWidth}, style: {'marginLeft': scrollPosition}">
+				<li data-bind="wsqdimensionssingle: parent.getActualWidth, css: cssClasses, click: click">
+					<!-- ko foreach:controls -->
+						<!-- ko template: viewTemplate --><!-- /ko -->
+					<!-- /ko -->
+				</li>
+			</ul>
+		</div>
+		<div class="tab-page-container" data-bind="wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: right.dimensions}">
+            <button data-bind="click: scrollRight">r</button>
+            <button data-bind="click: scrollLeft">l</button>
+		</div>
+		<div class="clear"></div>
+	</div>
 </script>
 <script type="text/html" id="fillpanel">
     <div data-bind="foreach: controls, css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">

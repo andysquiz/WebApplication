@@ -1,82 +1,145 @@
 ﻿wsq.controls.datatab = function (template, data, parent) {
-    var self = this;
-    var uo = ko.utils.unwrapObservable;
-    wsq.controls.build(self)(wsq.extenders.base, parent);
-    self.type = "datatab";
-    self.viewTemplate = "datatab";
-    self.template = template;
-    self.data = data;
-    self.root = self.parent.root;
-    self.dataSource = wsq.provider.parse(self.template.repeatSource, self.data, self, true);
+	var self = this;
+	var uo = ko.utils.unwrapObservable;
+	wsq.controls.build(self)(wsq.extenders.base, parent);
+	self.type = "datatab";
+	self.viewTemplate = "datatab";
+	self.template = template;
+	self.data = data;
+	self.root = self.parent.root;
+	self.dataSource = wsq.provider.parse(self.template.repeatSource, self.data, self, true);
+	self.tabs = ko.observableArray();
+	self.selectedItem = wsq.provider.parse(self.template.selectedItem, self.data, self, true);
+	self.dimensions = new wsq.dimensions(self, parent.dimensions, true);
+	self.tabDimensions = {};
 
-    self.tabs = ko.observableArray();
-    self.selectedItem = wsq.provider.parse(self.template.selectedItem, self.data, self, true);
-    self.dimensions = new wsq.dimensions(self, parent.dimensions);
-    var oldData = [];
+	var oldData = [];
 
-    function subFunc(newVal) {
-        var newData = [];
-        for (var o = 0; o < newVal.length; o++) {
-            var obj = ko.utils.unwrapObservable(newVal[o])
-            var oData = obj ? obj.data : null;
-            if (oData) {
-                newData.push(oData);
-            }
-        }
+	self.left = {
+		parent: self,
+		root: self.root,
+		actualWidth: ko.observable("0px")
+	};
+	self.left.dimensions = new wsq.dimensions(self.left, self.dimensions);
 
-        var differences = ko.utils.compareArrays(oldData, newData);
-        var arrPos = 0;
-        var tabPos = 0;
-        ko.utils.arrayForEach(differences, function (difference) {
-            if (difference.status === "added" || difference.status === "retained") {
-                var x = newData[arrPos];
-                if (!x) {
-                    return;
-                }
+	self.right = {
+		parent: self,
+		root: self.root,
+		configWidth: self.provider.parse(self.template.right ? self.template.right.width || "200px" : "200px", self.data, self)
+	}
+	self.right.dimensions = new wsq.dimensions(self.right, self.dimensions);
 
-                if (difference.status === "added") {
-                    var tab = uo(newVal[arrPos]);
-                    self.tabs.splice(tabPos, 0, self.newTab(tab));
-                }
+	self.leftWidth = ko.computed(function () {
+		var newWidth = parseInt(uo(self.dimensions.width))
+            - parseInt(uo(self.right.dimensions.width))
+            - 4;
+		return newWidth + "px";
+	});
 
-                arrPos++;
-                tabPos++;
-            }
-            else if (difference.status === "deleted") {
-                self.tabs.splice(tabPos, 1);
-            }
-        });
+	self.leftWidth.subscribe(function (newVal) {
+		self.left.dimensions.width(newVal);
+	});
 
-        oldData = newData;
+	self.getActualWidth = function () {
+		var output = 0;
+		var tabs = self.tabs();
+		for (var t = 0; t < tabs.length; t++) {
+			var tWidth = parseInt(tabs[t].dimensions.width());
+			output += isNaN(tWidth) ? 0 : tWidth;
+		}
+		self.left.actualWidth(output + self.actualWidthBuffer);
+		return output + "px";
+	}
+	self.actualWidthBuffer = 50;
+	self.scrollPosition = ko.observable("0px");
+	self.scrollAmount = 100;
+	self.scrollRight = function () {
+		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
+		var actualWidth = parseInt(self.left.actualWidth());
+		if (scrollPos < actualWidth - parseInt(self.left.dimensions.width())) {
+			self.scrollPosition("-" + (scrollPos + self.scrollAmount) + "px");
+		}
+		else {
+			self.scrollPosition("-" + (actualWidth - parseInt(self.left.dimensions.width())) + "px");
+		}
+	}
 
-        if (self.selectedItem && self.selectedItem() == null && newVal.length > 0) {
-            self.selectedItem(uo(newVal[0]));
-        }
-    }
+	self.scrollLeft = function () {
+		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
+		var actualWidth = parseInt(self.left.actualWidth());
+		if (scrollPos > 0) {
+			self.scrollPosition("-" + (scrollPos - self.scrollAmount) + "px");
+		}
+		else {
+			self.scrollPosition("0px");
+		}
+	}
 
-    self.dataSource.subscribe(subFunc);
+
+	function subFunc(newVal) {
+		var newData = [];
+		for (var o = 0; o < newVal.length; o++) {
+			var obj = ko.utils.unwrapObservable(newVal[o])
+			var oData = obj ? obj.data : null;
+			if (oData) {
+				newData.push(oData);
+			}
+		}
+
+		var differences = ko.utils.compareArrays(oldData, newData);
+		var arrPos = 0;
+		var tabPos = 0;
+		ko.utils.arrayForEach(differences, function (difference) {
+			if (difference.status === "added" || difference.status === "retained") {
+				var x = newData[arrPos];
+				if (!x) {
+					return;
+				}
+
+				if (difference.status === "added") {
+					var tab = uo(newVal[arrPos]);
+					self.tabs.splice(tabPos, 0, self.newTab(tab));
+				}
+
+				arrPos++;
+				tabPos++;
+			}
+			else if (difference.status === "deleted") {
+				self.tabs.splice(tabPos, 1);
+			}
+		});
+
+		oldData = newData;
+		self.getActualWidth();
+
+		if (self.selectedItem && self.selectedItem() == null && newVal.length > 0) {
+			self.selectedItem(uo(newVal[0]));
+		}
+	}
+
+	self.dataSource.subscribe(subFunc);
 
 
-    self.newTab = function (obj) {
-        var self = this;
-        var tab = {};
-        tab.template = obj.template;
-        tab.item = obj;
-        tab.data = obj.data;
-        wsq.controls.build(tab)(wsq.extenders.base, self)(wsq.extenders.container);
-        tab.root = self.root;
-        tab.dimensions = new wsq.dimensions(tab, self.dimensions);
-        wsq.controls.createControls.call(self, tab.controls, tab.template.header.controls, tab.data);
-        tab.name = wsq.provider.parse(tab.template.name, tab.data, tab, true);
-        tab.click = function () {
-            tab.parent.selectedItem(tab.item);
-        };
-        tab.selected = ko.computed(function () {
-            return tab.item == ko.utils.unwrapObservable(tab.parent.selectedItem);
-        });
-        tab.cssClasses = wsq.utils.style.createClassObject(tab.provider.parse(tab.template.classes, tab.data, self), tab.selected);
-        return tab;
-    }
+	self.newTab = function (obj) {
+		var self = this;
+		var tab = {};
+		tab.template = obj.template;
+		tab.item = obj;
+		tab.data = obj.data;
+		wsq.controls.build(tab)(wsq.extenders.base, self)(wsq.extenders.container);
+		tab.root = self.root;
+		tab.dimensions = new wsq.dimensions(tab, self.dimensions);
+		wsq.controls.createControls.call(self, tab.controls, tab.template.header.controls, tab.data);
+		tab.name = wsq.provider.parse(tab.template.name, tab.data, tab, true);
+		tab.click = function () {
+			tab.parent.selectedItem(tab.item);
+		};
+		tab.selected = ko.computed(function () {
+			return tab.item == ko.utils.unwrapObservable(tab.parent.selectedItem);
+		});
+		tab.cssClasses = wsq.utils.style.createClassObject(tab.provider.parse(tab.template.classes, tab.data, self), tab.selected);
+		return tab;
+	}
 
-    subFunc(ko.utils.unwrapObservable(self.dataSource));
+	subFunc(ko.utils.unwrapObservable(self.dataSource));
 }
