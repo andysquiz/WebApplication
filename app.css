@@ -241,4 +241,25 @@ div.tab-page-container
 {
 	float: right;
 	width: 40px;
+	text-align: right;
+}
+
+div.tab-page-right
+{
+	height: 20px;
+	width: 20px;
+	background-color: Red;
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+div.tab-page-left
+{
+	height: 20px;
+	width: 20px;
+	background-color: Blue;
+	cursor: pointer;
+	display: inline-block;
+	
 }

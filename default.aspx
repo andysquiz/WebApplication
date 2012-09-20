@@ -149,7 +149,7 @@
 						controls: [{
 							type: wsq.controls.layout,
 							top: {
-								height: "25px",
+								height: "24px",
 								classes: {
 									"content-top": false
 								},
@@ -160,8 +160,14 @@
 									classes: {
 										dataTabTop: true
 									},
+									scrollLeftClasses:{
+
+									},
+									scrollRightClasses: {
+
+									},
 									right: {
-										width: "96px"
+										width: "45px"
 									}
 								}]
 							},
@@ -423,13 +429,6 @@ function addform() {
         <!-- /ko -->
     </div>
 </script>
-<script type="text/html" id="datatabworking">
-    <ul data-bind="foreach: tabs, wsqid: true, wsqdimensions: true, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}" class="datatab" ><li data-bind="css: cssClasses, click: click">
-            <!-- ko foreach:controls -->
-                <!-- ko template: viewTemplate --><!-- /ko -->
-            <!-- /ko -->
-        </li></ul>
-</script>
 <script type="text/html" id="datatab">
 	<div data-bind="wsqid: true, wsqdimensions: true, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}">
 		<div style="display: inline-block; overflow: hidden" data-bind="wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: left.dimensions}">
@@ -442,8 +441,7 @@ function addform() {
 			</ul>
 		</div>
 		<div class="tab-page-container" data-bind="wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: right.dimensions}">
-            <button data-bind="click: scrollRight">r</button>
-            <button data-bind="click: scrollLeft">l</button>
+            <div data-bind="click: scrollRight, css: cssClasses" class="tab-page-right"></div><div data-bind="click: scrollLeft, css: cssClasses" class="tab-page-left"></div>
 		</div>
 		<div class="clear"></div>
 	</div>

@@ -11,6 +11,9 @@
 	self.tabs = ko.observableArray();
 	self.selectedItem = wsq.provider.parse(self.template.selectedItem, self.data, self, true);
 	self.dimensions = new wsq.dimensions(self, parent.dimensions, true);
+	self.cssClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.classes || {}, self.data, self));
+	self.scrollLeftClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.scrollLeftClasses || {}, self.data, self));
+	self.scrollRightClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.scrollRightClasses || {}, self.data, self));
 	self.tabDimensions = {};
 
 	var oldData = [];
@@ -38,6 +41,9 @@
 
 	self.leftWidth.subscribe(function (newVal) {
 		self.left.dimensions.width(newVal);
+		if (parseInt(self.scrollPosition()) < 0 && parseInt(self.left.dimensions.width()) >= parseInt(self.left.actualWidth())) {
+			self.scrollPosition("0px");
+		}
 	});
 
 	self.getActualWidth = function () {
@@ -52,11 +58,11 @@
 	}
 	self.actualWidthBuffer = 50;
 	self.scrollPosition = ko.observable("0px");
-	self.scrollAmount = 100;
 	self.scrollRight = function () {
+		var scrollAmount = parseInt(self.left.dimensions.width());
 		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
 		var actualWidth = parseInt(self.left.actualWidth());
-		if (scrollPos < actualWidth - parseInt(self.left.dimensions.width())) {
+		if (scrollPos + self.scrollAmount < actualWidth - parseInt(self.left.dimensions.width())) {
 			self.scrollPosition("-" + (scrollPos + self.scrollAmount) + "px");
 		}
 		else {
@@ -65,9 +71,10 @@
 	}
 
 	self.scrollLeft = function () {
+		var scrollAmount = parseInt(self.left.dimensions.width());
 		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
 		var actualWidth = parseInt(self.left.actualWidth());
-		if (scrollPos > 0) {
+		if (scrollPos > 0 && scrollPos - self.scrollAmount > 0) {
 			self.scrollPosition("-" + (scrollPos - self.scrollAmount) + "px");
 		}
 		else {
