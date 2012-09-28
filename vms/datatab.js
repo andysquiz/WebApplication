@@ -12,8 +12,7 @@
 	self.selectedItem = wsq.provider.parse(self.template.selectedItem, self.data, self, true);
 	self.dimensions = new wsq.dimensions(self, parent.dimensions, true);
 	self.cssClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.classes || {}, self.data, self));
-	self.scrollLeftClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.scrollLeftClasses || {}, self.data, self));
-	self.scrollRightClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.scrollRightClasses || {}, self.data, self));
+	
 	self.tabDimensions = {};
 
 	var oldData = [];
@@ -62,8 +61,8 @@
 		var scrollAmount = parseInt(self.left.dimensions.width());
 		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
 		var actualWidth = parseInt(self.left.actualWidth());
-		if (scrollPos + self.scrollAmount < actualWidth - parseInt(self.left.dimensions.width())) {
-			self.scrollPosition("-" + (scrollPos + self.scrollAmount) + "px");
+		if (scrollPos + scrollAmount < actualWidth - parseInt(self.left.dimensions.width())) {
+			self.scrollPosition("-" + (scrollPos + scrollAmount) + "px");
 		}
 		else {
 			self.scrollPosition("-" + (actualWidth - parseInt(self.left.dimensions.width())) + "px");
@@ -74,7 +73,7 @@
 		var scrollAmount = parseInt(self.left.dimensions.width());
 		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
 		var actualWidth = parseInt(self.left.actualWidth());
-		if (scrollPos > 0 && scrollPos - self.scrollAmount > 0) {
+		if (scrollPos > 0 && scrollPos - scrollAmount > 0) {
 			self.scrollPosition("-" + (scrollPos - self.scrollAmount) + "px");
 		}
 		else {
@@ -82,6 +81,21 @@
 		}
 	}
 
+	self.canScrollRight = ko.computed(function () {
+		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
+		var scrollAmount = parseInt(self.left.dimensions.width());
+		var actualWidth = parseInt(self.left.actualWidth());
+		return scrollPos  < actualWidth - scrollAmount ? true : false;
+	});
+
+	self.canScrollLeft = ko.computed(function () {
+		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
+		return scrollPos > 0 ? true : false;
+	});
+
+
+	self.scrollLeftClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.scrollLeftClasses || {}, self.data, self), self.canScrollLeft);
+	self.scrollRightClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.scrollRightClasses || {}, self.data, self), self.canScrollRight);
 
 	function subFunc(newVal) {
 		var newData = [];

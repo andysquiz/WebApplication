@@ -161,13 +161,15 @@
 										dataTabTop: true
 									},
 									scrollLeftClasses:{
-
+										dataTabScroll: true,
+										dataTabNoScroll: false
 									},
 									scrollRightClasses: {
-
+										dataTabScroll: true,
+										dataTabNoScroll: false
 									},
 									right: {
-										width: "45px"
+										width: "50px"
 									}
 								}]
 							},
@@ -440,8 +442,7 @@ function addform() {
 				</li>
 			</ul>
 		</div>
-		<div class="tab-page-container" data-bind="wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: right.dimensions}">
-            <div data-bind="click: scrollRight, css: cssClasses" class="tab-page-right"></div><div data-bind="click: scrollLeft, css: cssClasses" class="tab-page-left"></div>
+		<div class="tab-page-container" data-bind="wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: right.dimensions}">            <div class="tab-page-left" data-bind="click: scrollLeft, css: scrollLeftClasses">&lt;</div><div class="tab-page-right" data-bind="click: scrollRight, css: scrollRightClasses">&gt;</div>
 		</div>
 		<div class="clear"></div>
 	</div>

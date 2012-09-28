@@ -251,7 +251,7 @@ div.tab-page-right
 	background-color: Red;
 	cursor: pointer;
 	display: inline-block;
-	margin-right: 5px;
+	text-align: center;
 }
 
 div.tab-page-left
@@ -261,5 +261,27 @@ div.tab-page-left
 	background-color: Blue;
 	cursor: pointer;
 	display: inline-block;
-	
+	margin-right: 5px;
+	text-align: center;
 }
+
+div.dataTabScroll
+{
+	background-color: #cccccc;
+	border: 1px solid #444444;
+	color: #444444;
+}
+
+div.dataTabScroll:hover
+{
+	background-color: #bbbbbb;
+}
+
+div.dataTabNoScroll
+{
+	background-color: transparent;
+	border: 1px solid #aaaaaa;
+	color: #aaaaaa;
+	cursor: default;
+}
+
