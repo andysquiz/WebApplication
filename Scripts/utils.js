@@ -2,6 +2,7 @@
 wsq.utils.str = {};
 wsq.utils.sizing = {};
 wsq.utils.style = {};
+wsq.utils.dragDrop = {};
 
 
 wsq.utils.str.endsWith = function (str, match) {
@@ -71,4 +72,16 @@ wsq.utils.style.createClassObject = function (classesToApply, comparisonValue) {
 		}
     }
     return classes;
+}
+
+wsq.utils.dragDrop.allowDrop = function (ev) {
+    ev.preventDefault();
+}
+
+wsq.utils.dragDrop.drag = function (ev, data) {
+    if (ev) {
+        for (var m in data) {
+            ev.originalEvent.dataTransfer.setData(m, ko.utils.unwrapObservable(data[m]));
+        }
+    }
 }

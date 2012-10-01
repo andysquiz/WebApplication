@@ -53,3 +53,19 @@ wsq.extenders.container = function () {
     var self = this;
     self.controls = ko.observableArray();
 }
+
+wsq.extenders.draggable = function () {
+    var self = this;
+    self.draggable = wsq.provider.parse(self.template.draggable || false, self.data, self, true);
+    var dragData = {};
+    if (self.template.dragData) {
+        for (var m in self.template.dragData) {
+            dragData[m] = wsq.provider.parse(self.template.dragData[m], self.data, self, true);
+        }
+    }
+    self.dragData = dragData;
+}
+
+wsq.extenders.droppable = function () {
+    var self = this;
+}

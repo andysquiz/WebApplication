@@ -56,6 +56,8 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\dimensions.js" />
     <Content Include="Scripts\dimensionsExtender.js" />
+    <Content Include="Scripts\draggableExtender.js" />
+    <Content Include="Scripts\droppableExtender.js" />
     <Content Include="Scripts\expressions.js" />
     <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\idExtender.js" />
@@ -67,6 +69,8 @@
     <Content Include="Scripts\utils.js" />
     <Content Include="vms\dataPanel.js" />
     <Content Include="vms\datatab.js" />
+    <Content Include="vms\designerpanel.js" />
+    <Content Include="vms\designerrootcontainer.js" />
     <Content Include="vms\expander.js" />
     <Content Include="vms\fillpanel.js" />
     <Content Include="vms\label.js" />

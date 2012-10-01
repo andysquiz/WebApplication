@@ -14,6 +14,8 @@
     <script src="scripts/provider.js" type="text/javascript"></script>
     <script src="scripts/expressions.js" type="text/javascript"></script>
     <script src="scripts/functions.js" type="text/javascript"></script>
+    <script src="scripts/draggableExtender.js" type="text/javascript"></script>
+    <script src="scripts/droppableExtender.js" type="text/javascript"></script>
     <script src="vms/webapp.js" type="text/javascript"></script>
     <script src="vms/layout.js" type="text/javascript"></script>
     <script src="vms/fillpanel.js" type="text/javascript"></script>
@@ -23,6 +25,8 @@
     <script src="vms/datapanel.js" type="text/javascript"></script>
     <script src="vms/label.js" type="text/javascript"></script>
     <script src="vms/fluidpanel.js" type="text/javascript"></script>
+    <script src="vms/designerrootcontainer.js" type="text/javascript"></script>
+    <script src="vms/designerpanel.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
 </head>
 <script type="text/javascript">
@@ -70,6 +74,7 @@
 				controls: [{
 					type: wsq.controls.fluidpanel,
 					data: "$.bottom",
+                    draggable: true,
 					controls: [{
 						type: wsq.controls.label,
 						text: "join(1,2,3)"
@@ -128,7 +133,12 @@
 											text: "test"
 										}],
 										contentControls: [{
-											type: wsq.controls.fluidpanel,
+										    type: wsq.controls.fluidpanel,
+										    draggable: true,
+										    dragData: {
+                                                type: "$.type",
+                                                text: "$.name"
+                                            },
 											controls: [{
 												type: wsq.controls.label,
 												text: "$.name"
@@ -156,7 +166,7 @@
 								controls: [{
 									type: wsq.controls.datatab,
 									repeatSource: "join(controlitems($.forms, #.templates.formDataTab),controlitems($.workflows, #.templates.workflowDataTab))",
-									selectedItem: "$root.selectedFile",
+									selectedContent: "#.selectedFile",
 									classes: {
 										dataTabTop: true
 									},
@@ -176,9 +186,10 @@
 							middle: {
 								controls: [{
 									type: wsq.controls.datapanel,
-									dataSource: "$root.selectedFile",
+									dataSource: "#.selectedFile",
 									classes: {
-										datapanel: true
+										datapanel: true,
+                                        auto: true
 									}
 								}]
 							}
@@ -190,57 +201,56 @@
 	}
 
     var formData = {
-        templates: {
-            formDataTab: {
-                type: "form",
-                classes: {
-                    datatabtop: "all",
-                    selected: true
-                },
-                header: {
-                    controls: [{
-                        type: wsq.controls.label,
-                        text: "$.name"
-                    }]
-                },
-                body: {
-                    controls: [{
-                        type: wsq.controls.label,
-                        text: "$.description"
-                    }]
-                }
-            },
-            workflowDataTab: {
-                type: "workflow",
-                classes: {
-                    datatabtop: "all",
-                    selected: true
-                },
-                header: {
-                    controls: [{
-                        type: wsq.controls.label,
-                        text: "$.name"
-                    }]
-                },
-                body: {
-                    controls: [{
-                        type: wsq.controls.label,
-                        text: "\"w \" + $.description"
-                       },
+        selectedFile: ko.observable(null),
+	    templates: {
+	        formDataTab: {
+	            type: "form",
+	            classes: {
+	                datatabtop: "all",
+	                selected: true
+	            },
+	            header: {
+	                controls: [{
+	                    type: wsq.controls.label,
+	                    text: "$.name"
+	                }]
+	            },
+	            body: {
+	                controls: [{
+	                    type: wsq.controls.designerrootcontainer
+	                }]
+	            }
+	        },
+	        workflowDataTab: {
+	            type: "workflow",
+	            classes: {
+	                datatabtop: "all",
+	                selected: true
+	            },
+	            header: {
+	                controls: [{
+	                    type: wsq.controls.label,
+	                    text: "$.name"
+	                }]
+	            },
+	            body: {
+	                controls: [{
+	                    type: wsq.controls.label,
+	                    text: "\"w \" + $.description"
+	                },
 					{
-						type: wsq.controls.label,
-						text: "template test"
+					    type: wsq.controls.label,
+					    text: "template test"
 					}
 					]
-                }
-            }
-        }
-    }
+	            }
+	        }
+	    }
+	}
 
     var data = {
     	name: "Designer Test Application",
     	version: ko.observable("0.0.1"),
-        selectedFile: ko.observable(null),
     	forms: ko.observableArray([{
     	    name: "f1",
             description: "form 1"
@@ -262,7 +272,8 @@
     	controlGroups: ko.observableArray([{
     		name: "Panels",
     		controls: ko.observableArray([{
-    			name: "Header Panel"
+    			name: "Panel",
+                type: "designerpanel"
     		},
 			{
 				name: "Footer Panel"
@@ -426,9 +437,33 @@ function addform() {
     </div>
 </script>
 <script type="text/html" id="fluidpanel">
-    <div data-bind="foreach: controls, wsqid: true, wsqdimensions: true">
+    <div data-bind="foreach: controls, wsqid: true, wsqdimensions: true, wsqdraggable: draggable">
         <!-- ko template: viewTemplate -->
         <!-- /ko -->
+    </div>
+</script>
+<script type="text/html" id="designerrootcontainer">
+    <div>
+        <div>DESIGNER ROOT CONTAINER!</div>
+        <div class="designer-container">
+            <div data-bind="foreach: controls, wsqid: true, wsqdimensions: true">
+                <!-- ko template: viewTemplate -->
+                <!-- /ko -->
+            </div>
+            <div data-bind="wsqdroppable: true" class="designer-container-drop"></div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="designerpanel">
+    <div>
+        <div>DESIGNER PANEL!</div>
+        <div class="designer-container">
+            <div data-bind="foreach: controls, wsqid: true, wsqdimensions: true">
+                <!-- ko template: viewTemplate -->
+                <!-- /ko -->
+            </div>
+            <div data-bind="wsqdroppable: true" class="designer-container-drop"></div>
+        </div>
     </div>
 </script>
 <script type="text/html" id="datatab">

@@ -9,10 +9,11 @@
 	self.root = self.parent.root;
 	self.dataSource = wsq.provider.parse(self.template.repeatSource, self.data, self, true);
 	self.tabs = ko.observableArray();
-	self.selectedItem = wsq.provider.parse(self.template.selectedItem, self.data, self, true);
+	self.selectedItem = ko.observable(null);
+	self.selectedContent = wsq.provider.parse(self.template.selectedContent, self.data, self, true);
 	self.dimensions = new wsq.dimensions(self, parent.dimensions, true);
 	self.cssClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.classes || {}, self.data, self));
-	
+
 	self.tabDimensions = {};
 
 	var oldData = [];
@@ -85,7 +86,7 @@
 		var scrollPos = Math.abs(parseInt(self.scrollPosition()));
 		var scrollAmount = parseInt(self.left.dimensions.width());
 		var actualWidth = parseInt(self.left.actualWidth());
-		return scrollPos  < actualWidth - scrollAmount ? true : false;
+		return scrollPos < actualWidth - scrollAmount ? true : false;
 	});
 
 	self.canScrollLeft = ko.computed(function () {
@@ -134,12 +135,11 @@
 		self.getActualWidth();
 
 		if (self.selectedItem && self.selectedItem() == null && newVal.length > 0) {
-			self.selectedItem(uo(newVal[0]));
+			self.tabs()[0].click();
 		}
 	}
 
 	self.dataSource.subscribe(subFunc);
-
 
 	self.newTab = function (obj) {
 		var self = this;
@@ -152,14 +152,44 @@
 		tab.dimensions = new wsq.dimensions(tab, self.dimensions);
 		wsq.controls.createControls.call(self, tab.controls, tab.template.header.controls, tab.data);
 		tab.name = wsq.provider.parse(tab.template.name, tab.data, tab, true);
+
+		function selectContent(t) {
+			var item = {};
+			if (t.content == null) {
+				item.template = tab.template;
+				item.data = tab.data;
+				wsq.controls.build(item)(wsq.extenders.base, tab)(wsq.extenders.container);
+				item.root = tab.root;
+				wsq.controls.createControls.call(tab, item.controls, item.template.body.controls, item.data);
+				t.content = item;
+			}
+			else {
+				item = t.content;
+			}
+			return item;
+		}
+
 		tab.click = function () {
 			tab.parent.selectedItem(tab.item);
+			tab.parent.selectedContent(selectContent(tab));
 		};
 		tab.selected = ko.computed(function () {
 			return tab.item == ko.utils.unwrapObservable(tab.parent.selectedItem);
 		});
 		tab.cssClasses = wsq.utils.style.createClassObject(tab.provider.parse(tab.template.classes, tab.data, self), tab.selected);
+		tab.content = null;
 		return tab;
+	}
+
+	self.newItem = function (itemData) {
+		var self = this;
+		var item = {};
+		item.template = itemData.template;
+		item.data = itemData.data;
+		wsq.controls.build(item)(wsq.extenders.base, self)(wsq.extenders.container);
+		item.root = self.root;
+		wsq.controls.createControls.call(self, item.controls, item.template.body.controls, item.data);
+		return item;
 	}
 
 	subFunc(ko.utils.unwrapObservable(self.dataSource));

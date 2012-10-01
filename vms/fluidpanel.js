@@ -1,9 +1,10 @@
 ﻿wsq.controls.fluidpanel = function (template, data, parent) {
     var self = this;
-    wsq.controls.build(self)(wsq.extenders.base, parent)(wsq.extenders.container);
-
     self.template = template;
     self.data = data;
+    wsq.controls.build(self)(wsq.extenders.base, parent)(wsq.extenders.container)(wsq.extenders.draggable);
+
+    
     self.orientation = wsq.provider.parse(self.template.orientation || "vertical", self.data, self);
     self.type = "fluidpanel";
     self.viewTemplate = wsq.provider.parse(self.template.viewTemplate || "fluidpanel", self.data, self);

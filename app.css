@@ -285,3 +285,15 @@ div.dataTabNoScroll
 	cursor: default;
 }
 
+div.designer-container
+{
+    border: 1px dashed #999999;
+    padding: 3px;
+}
+
+div.designer-container-drop
+{
+    background-color: #cccccc;
+    min-height: 20px;
+}
+
