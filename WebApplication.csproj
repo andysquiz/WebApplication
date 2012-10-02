@@ -78,6 +78,7 @@
     <Content Include="Scripts\vm.js" />
     <Content Include="vms\fluidpanel.js" />
     <Content Include="vms\repeater.js" />
+    <Content Include="vms\workflowcanvas.js" />
     <Content Include="vms\webapp.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

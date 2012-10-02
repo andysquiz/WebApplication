@@ -27,6 +27,7 @@
     <script src="vms/fluidpanel.js" type="text/javascript"></script>
     <script src="vms/designerrootcontainer.js" type="text/javascript"></script>
     <script src="vms/designerpanel.js" type="text/javascript"></script>
+	<script src="vms/workflowcanvas.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
 </head>
 <script type="text/javascript">
@@ -235,14 +236,8 @@
 	            },
 	            body: {
 	                controls: [{
-	                    type: wsq.controls.label,
-	                    text: "\"w \" + $.description"
-	                },
-					{
-					    type: wsq.controls.label,
-					    text: "template test"
-					}
-					]
+	                    type: wsq.controls.workflowcanvas
+	                }]
 	            }
 	        }
 	    }
@@ -487,6 +482,9 @@ function addform() {
         <!-- ko template: viewTemplate -->
         <!-- /ko -->
     </div>
+</script>
+<script type="text/html" id="fillcanvas">
+    <canvas data-bind="css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}" style="background-color: green; margin: 0; padding: 0; border: 0"></canvas>
 </script>
 <script type="text/html" id="datapanelitem">
     <div data-bind="foreach: controls">

@@ -158,9 +158,11 @@
 			if (t.content == null) {
 				item.template = tab.template;
 				item.data = tab.data;
-				wsq.controls.build(item)(wsq.extenders.base, tab)(wsq.extenders.container);
+				wsq.controls.build(item)(wsq.extenders.base, item)(wsq.extenders.container);
 				item.root = tab.root;
-				wsq.controls.createControls.call(tab, item.controls, item.template.body.controls, item.data);
+				item.dimensions = new wsq.dimensions(item, self.dimensions);
+				item.init = false;
+				
 				t.content = item;
 			}
 			else {
@@ -179,17 +181,6 @@
 		tab.cssClasses = wsq.utils.style.createClassObject(tab.provider.parse(tab.template.classes, tab.data, self), tab.selected);
 		tab.content = null;
 		return tab;
-	}
-
-	self.newItem = function (itemData) {
-		var self = this;
-		var item = {};
-		item.template = itemData.template;
-		item.data = itemData.data;
-		wsq.controls.build(item)(wsq.extenders.base, self)(wsq.extenders.container);
-		item.root = self.root;
-		wsq.controls.createControls.call(self, item.controls, item.template.body.controls, item.data);
-		return item;
 	}
 
 	subFunc(ko.utils.unwrapObservable(self.dataSource));

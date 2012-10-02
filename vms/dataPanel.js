@@ -19,6 +19,15 @@
 	function subFunc(newVal) {
 		if (newVal) {
 			newVal.viewTemplate = "datapanelitem";
+			var dim = new wsq.dimensions(newVal, self.dimensions, true);
+			newVal.dimensions.height(dim.height());
+			newVal.dimensions.width(dim.width());
+
+			if (!newVal.init) {
+				wsq.controls.createControls.call(self, newVal.controls, newVal.template.body.controls, newVal.data);
+				newVal.init = true;
+			}
+
 			self.control(newVal);
 		}
 	}

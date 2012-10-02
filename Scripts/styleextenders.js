@@ -28,6 +28,7 @@ ko.bindingHandlers.wsqstylewidth = {
             + parseInt($(element).css("border-right-width"))
             + parseInt($(element).css("padding-left"))
             + parseInt($(element).css("padding-right"));
+
 		var newWidth = (parseInt(ko.utils.unwrapObservable(value)) - (!isNaN(elemBorder) ? elemBorder : 0)) + "px";
 		if (va.obj) {
 			va.obj.innerWidth(newWidth);
