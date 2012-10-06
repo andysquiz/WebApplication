@@ -1,4 +1,4 @@
-﻿ko.bindingHandlers.wsqstyleheight = {
+﻿ko.bindingHandlers.wsqelementheight = {
 	update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 		var va = valueAccessor();
 		var value = va.value;
@@ -22,11 +22,11 @@
 		if (va.obj) {
 			va.obj.innerHeight(newHeight);
 		}
-		$(element).css("height", newHeight);
+		$(element).attr("height", newHeight);
 	}
 }
 
-ko.bindingHandlers.wsqstylewidth = {
+ko.bindingHandlers.wsqelementwidth = {
 	update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 		var va = valueAccessor();
 		var value = va.value;
@@ -49,6 +49,6 @@ ko.bindingHandlers.wsqstylewidth = {
 		if (va.obj) {
 			va.obj.innerWidth(newWidth);
 		}
-		$(element).css("width", newWidth);
+		$(element).attr("width", newWidth);
 	}
 }

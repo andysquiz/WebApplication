@@ -2,7 +2,7 @@
     var self = this;
     self.template = template;
     self.data = data;
-    wsq.controls.build(self)(wsq.extenders.base, parent)(wsq.extenders.container)(wsq.extenders.droppable);
+    wsq.controls.build(self)(wsq.extenders.base, parent)(wsq.extenders.container);
 
     self.orientation = wsq.provider.parse(self.template.orientation || "vertical", self.data, self);
     self.type = "designerpanel";

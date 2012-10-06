@@ -3,6 +3,7 @@ wsq.utils.str = {};
 wsq.utils.sizing = {};
 wsq.utils.style = {};
 wsq.utils.dragDrop = {};
+wsq.utils.mouse = {};
 
 
 wsq.utils.str.endsWith = function (str, match) {
@@ -84,4 +85,29 @@ wsq.utils.dragDrop.drag = function (ev, data) {
             ev.originalEvent.dataTransfer.setData(m, ko.utils.unwrapObservable(data[m]));
         }
     }
+}
+
+
+wsq.utils.mouse.getElementPosition = function (element, evt) {
+	// get element position
+	var obj = element;
+	var top = 0;
+	var left = 0;
+	while (obj.tagName != 'BODY') {
+		top += obj.offsetTop;
+		left += obj.offsetLeft;
+		obj = obj.offsetParent;
+	}
+
+	// return relative mouse position
+	var mouseX = evt.clientX - left + window.pageXOffset;
+	var mouseY = evt.clientY - top + window.pageYOffset;
+
+	x = mouseX;
+	y = mouseY;
+
+	return {
+		x: mouseX,
+		y: mouseY
+	};
 }

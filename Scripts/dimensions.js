@@ -22,7 +22,7 @@
 				return (minHeight && parseInt(tempHeight) < parseInt(minHeight) ? minHeight : parseInt(tempHeight)) + "px";
 			}
 			else {
-				return minHeight && uo(storedHeight) < parseInt(minHeight) ? minHeight : parseInt(uo(storedHeight)) + "px";
+				return minHeight && (uo(storedHeight) || 0) < parseInt(minHeight) ? minHeight : (parseInt(uo(storedHeight)) || 0) + "px";
 			}
 		},
 		write: function (value) {
@@ -49,7 +49,7 @@
 				return (minWidth && parseInt(tempWidth) < parseInt(minWidth) ? minWidth : parseInt(tempWidth)) + "px";
 			}
 			else {
-				return minWidth && uo(storedWidth) < parseInt(minWidth) ? minWidth : parseInt(uo(storedWidth)) + "px";
+				return minWidth && (uo(storedWidth) || 0) < parseInt(minWidth) ? minWidth : (parseInt(uo(storedWidth)) || 0) + "px";
 			}
 		},
 		write: function (value) {

@@ -162,7 +162,10 @@
 				item.root = tab.root;
 				item.dimensions = new wsq.dimensions(item, self.dimensions);
 				item.init = false;
-				
+				item.mousePosition = {
+				    x: ko.observable(0),
+				    y: ko.observable(0)
+				}
 				t.content = item;
 			}
 			else {

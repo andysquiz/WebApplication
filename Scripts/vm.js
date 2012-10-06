@@ -6,8 +6,10 @@ wsq.extenders = {};
 wsq.controls.createControls = function (vmArr, templateArr, data) {
 	// create the controls and add them to the controls array
 	var self = this;
-	for (var c = 0; c < templateArr.length; c++) {
-		vmArr.push(new templateArr[c].type(templateArr[c],wsq.provider.parse(templateArr[c].data || null, data, null) || data,self));
+	if (templateArr && templateArr.length) {
+		for (var c = 0; c < templateArr.length; c++) {
+			vmArr.push(new templateArr[c].type(templateArr[c], wsq.provider.parse(templateArr[c].data || null, data, null) || data, self));
+		}
 	}
 }   
 
@@ -66,6 +68,7 @@ wsq.extenders.draggable = function () {
     self.dragData = dragData;
 }
 
-wsq.extenders.droppable = function () {
-    var self = this;
+wsq.extenders.infoData = function () {
+	var self = this;
+	self.infoDataTemplate = wsq.provider.parse(self.template.infoDataTemplate || "", self.data, self, true);
 }

@@ -8,6 +8,7 @@
 	<script src="scripts/idExtender.js" type="text/javascript"></script>
 	<script src="scripts/dimensionsExtender.js" type="text/javascript"></script>
 	<script src="scripts/styleExtenders.js" type="text/javascript"></script>
+	<script src="scripts/elementExtenders.js" type="text/javascript"></script>
 	<script src="scripts/vm.js" type="text/javascript"></script>
     <script src="scripts/utils.js" type="text/javascript"></script>
 	<script src="scripts/dimensions.js" type="text/javascript"></script>
@@ -16,6 +17,8 @@
     <script src="scripts/functions.js" type="text/javascript"></script>
     <script src="scripts/draggableExtender.js" type="text/javascript"></script>
     <script src="scripts/droppableExtender.js" type="text/javascript"></script>
+	<script src="scripts/mousePositionExtender.js" type="text/javascript"></script>
+	<script src="scripts/canvasExtender.js" type="text/javascript"></script>
     <script src="vms/webapp.js" type="text/javascript"></script>
     <script src="vms/layout.js" type="text/javascript"></script>
     <script src="vms/fillpanel.js" type="text/javascript"></script>
@@ -73,13 +76,16 @@
 					"app-bottom-inverted": true
 				},
 				controls: [{
-					type: wsq.controls.fluidpanel,
+					type: wsq.controls.fillpanel,
 					data: "$.bottom",
-                    draggable: true,
-					controls: [{
-						type: wsq.controls.label,
-						text: "join(1,2,3)"
-					}]
+                    controls: [{
+                    	type: wsq.controls.datapanel,
+                    	dataSource: "controlitem(\"#.selectedFile\", \"$.template.infoDataTemplate\")",
+                    	controlsPath: "$.template.controls",
+                    	classes: {
+                    		datapanel: true
+                    	}
+                    }]
 				}]
 			},
 			middle: {
@@ -188,9 +194,10 @@
 								controls: [{
 									type: wsq.controls.datapanel,
 									dataSource: "#.selectedFile",
+									controlsPath: "$.template.body.controls",
 									classes: {
 										datapanel: true,
-                                        auto: true
+                                        content: true
 									}
 								}]
 							}
@@ -220,7 +227,8 @@
 	                controls: [{
 	                    type: wsq.controls.designerrootcontainer
 	                }]
-	            }
+	            },
+                infoDataTemplate: "formInfoData"
 	        },
 	        workflowDataTab: {
 	            type: "workflow",
@@ -238,8 +246,27 @@
 	                controls: [{
 	                    type: wsq.controls.workflowcanvas
 	                }]
-	            }
-	        }
+	            },
+				infoDataTemplate: "workflowInfoData"
+	        },
+			workflowInfoData: {
+				type: "workflowinfo",
+				controls: [{
+					type: wsq.controls.label,
+					text: "\"x:\" + $.mousePosition.x"
+	            },
+                {
+                    type: wsq.controls.label,
+                    text: "\"y:\" + $.mousePosition.y"
+                }]
+			},
+			formInfoData: {
+				type: "forminfo",
+				controls: [{
+					type: wsq.controls.label,
+					text: "forminfo"
+				}]
+			}
 	    }
 	}
 
@@ -329,7 +356,13 @@ function addform() {
     var name = prompt("name");
     var desc = prompt("description");
     data.forms.push({ name: name, description: desc });
-}
+   }
+
+   function addwf() {
+   	var name = prompt("name");
+   	var desc = prompt("description");
+   	data.workflows.push({ name: name, description: desc });
+   }
 </script>
 <script type="text/html" id="app">
 	<div data-bind="style: { height: dimensions.height, width: dimensions.width}">
@@ -484,10 +517,11 @@ function addform() {
     </div>
 </script>
 <script type="text/html" id="fillcanvas">
-    <canvas data-bind="css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}" style="background-color: green; margin: 0; padding: 0; border: 0"></canvas>
+    <canvas id="test" data-bind="css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}, wsqelementheight: {obj: dimensions}, wsqelementwidth: {obj: dimensions}, wsqmouseposition: true, wsqcanvas2d: true" style="margin: 0; padding: 0; border: 1px solid #999999"></canvas>
 </script>
 <script type="text/html" id="datapanelitem">
-    <div data-bind="foreach: controls">
+    
+	<div data-bind="foreach: controls">
         <!-- ko template: viewTemplate -->
         <!-- /ko -->
     </div>
@@ -530,6 +564,7 @@ function addform() {
 	<button onclick="addgroup()" style="padding:0; line-height: normal">Add Group</button>
 	<button onclick="popgroup()" style="padding:0; line-height: normal">Pop Group</button>
     <button onclick="addform()" style="padding:0; line-height: normal">Add Form</button>
+	<button onclick="addwf()" style="padding:0; line-height: normal">Add Workflow</button>
 </script>
 <script type="text/html" id="layoutTopCollapser">
     <div class="clear" data-bind="click: toggleCollapse, css: cssClasses, wsqstyleheight: {obj: dimensions}">Top Collapser</div>
