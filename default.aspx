@@ -17,7 +17,7 @@
     <script src="scripts/functions.js" type="text/javascript"></script>
     <script src="scripts/draggableExtender.js" type="text/javascript"></script>
     <script src="scripts/droppableExtender.js" type="text/javascript"></script>
-	<script src="scripts/mousePositionExtender.js" type="text/javascript"></script>
+	<script src="scripts/mouseExtender.js" type="text/javascript"></script>
 	<script src="scripts/canvasExtender.js" type="text/javascript"></script>
     <script src="vms/webapp.js" type="text/javascript"></script>
     <script src="vms/layout.js" type="text/javascript"></script>
@@ -31,6 +31,8 @@
     <script src="vms/designerrootcontainer.js" type="text/javascript"></script>
     <script src="vms/designerpanel.js" type="text/javascript"></script>
 	<script src="vms/workflowcanvas.js" type="text/javascript"></script>
+    <script src="vms/form.js" type="text/javascript"></script>
+	<script src="vms/workflow.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
 </head>
 <script type="text/javascript">
@@ -212,7 +214,7 @@
         selectedFile: ko.observable(null),
 	    templates: {
 	        formDataTab: {
-	            type: "form",
+	            type: wsq.controls.form,
 	            classes: {
 	                datatabtop: "all",
 	                selected: true
@@ -231,7 +233,7 @@
                 infoDataTemplate: "formInfoData"
 	        },
 	        workflowDataTab: {
-	            type: "workflow",
+	            type: wsq.controls.workflow,
 	            classes: {
 	                datatabtop: "all",
 	                selected: true
@@ -264,7 +266,7 @@
 				type: "forminfo",
 				controls: [{
 					type: wsq.controls.label,
-					text: "forminfo"
+					text: "$.hoverControl"
 				}]
 			}
 	    }
@@ -471,7 +473,7 @@ function addform() {
     </div>
 </script>
 <script type="text/html" id="designerrootcontainer">
-    <div>
+    <div data-bind="wsqmouseover: hover">
         <div>DESIGNER ROOT CONTAINER!</div>
         <div class="designer-container">
             <div data-bind="foreach: controls, wsqid: true, wsqdimensions: true">
@@ -483,7 +485,7 @@ function addform() {
     </div>
 </script>
 <script type="text/html" id="designerpanel">
-    <div>
+    <div data-bind="wsqmouseover: hover">
         <div>DESIGNER PANEL!</div>
         <div class="designer-container">
             <div data-bind="foreach: controls, wsqid: true, wsqdimensions: true">

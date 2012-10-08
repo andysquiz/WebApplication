@@ -65,7 +65,7 @@
     <Content Include="Scripts\idExtender.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\mousePositionExtender.js" />
+    <Content Include="Scripts\mouseExtender.js" />
     <Content Include="Scripts\provider.js" />
     <Content Include="Scripts\resizeEvent.js" />
     <Content Include="Scripts\styleextenders.js" />
@@ -76,11 +76,13 @@
     <Content Include="vms\designerrootcontainer.js" />
     <Content Include="vms\expander.js" />
     <Content Include="vms\fillpanel.js" />
+    <Content Include="vms\form.js" />
     <Content Include="vms\label.js" />
     <Content Include="vms\layout.js" />
     <Content Include="Scripts\vm.js" />
     <Content Include="vms\fluidpanel.js" />
     <Content Include="vms\repeater.js" />
+    <Content Include="vms\workflow.js" />
     <Content Include="vms\workflowcanvas.js" />
     <Content Include="vms\webapp.js" />
     <Content Include="Web.config" />

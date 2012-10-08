@@ -17,7 +17,7 @@
             + parseInt($(element).css("border-bottom-width"))
             + parseInt($(element).css("padding-top"))
             + parseInt($(element).css("padding-bottom"))
-			+ (overflow == "auto" || overflow == "scroll" ? 21 : 0);
+			+ (overflow == "auto" || overflow == "scroll" ? 32 : 0);
 		var newHeight = (parseInt(ko.utils.unwrapObservable(value)) - (!isNaN(elemBorder) ? elemBorder : 0)) + "px";
 		if (va.obj) {
 			va.obj.innerHeight(newHeight);
@@ -44,7 +44,7 @@ ko.bindingHandlers.wsqstylewidth = {
             + parseInt($(element).css("border-right-width"))
             + parseInt($(element).css("padding-left"))
             + parseInt($(element).css("padding-right"))
-			+ (overflow == "auto" || overflow == "scroll" ? 21 : 0);
+			+ (overflow == "auto" || overflow == "scroll" ? 32 : 0);
 		var newWidth = (parseInt(ko.utils.unwrapObservable(value)) - (!isNaN(elemBorder) ? elemBorder : 0)) + "px";
 		if (va.obj) {
 			va.obj.innerWidth(newWidth);

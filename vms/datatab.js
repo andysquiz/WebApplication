@@ -154,18 +154,11 @@
 		tab.name = wsq.provider.parse(tab.template.name, tab.data, tab, true);
 
 		function selectContent(t) {
-			var item = {};
+			var item;
 			if (t.content == null) {
-				item.template = tab.template;
-				item.data = tab.data;
-				wsq.controls.build(item)(wsq.extenders.base, item)(wsq.extenders.container);
-				item.root = tab.root;
-				item.dimensions = new wsq.dimensions(item, self.dimensions);
+				item = new tab.template.type(tab.template, tab.data, self);
 				item.init = false;
-				item.mousePosition = {
-				    x: ko.observable(0),
-				    y: ko.observable(0)
-				}
+				
 				t.content = item;
 			}
 			else {

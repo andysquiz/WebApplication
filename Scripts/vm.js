@@ -49,6 +49,8 @@ wsq.extenders.base = function (parent, provider) {
 	}
 	self.provider = provider || wsq.provider;
 	self.parent = parent;
+
+	self.options = self.parent ? self.parent.childOptions ? self.parent.childOptions : self.parent.options ? self.parent.options : null : null;
 }
 
 wsq.extenders.container = function () {
@@ -66,9 +68,11 @@ wsq.extenders.draggable = function () {
         }
     }
     self.dragData = dragData;
-}
+   }
 
-wsq.extenders.infoData = function () {
+wsq.extenders.childOptions = function (childOptions) {
 	var self = this;
-	self.infoDataTemplate = wsq.provider.parse(self.template.infoDataTemplate || "", self.data, self, true);
+	var parentOptions = self.parent && self.parent.options ? self.parent.options : null;
+	self.childOptions = $.extend({}, parentOptions, childOptions);
+	return this;
 }
