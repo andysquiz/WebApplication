@@ -101,7 +101,18 @@
 							"app-left": false,
 							"auto": false
 						},
-						controls: [{
+			            controls: [
+                        {
+                            type: wsq.controls.fluidpanel,
+                            classes: {
+                                "banner": true
+                            },
+                            controls: [{
+                                type: wsq.controls.label,
+                                text: "indirectval(\"#.selectedFile\",\"childTypes\")"
+                            }]
+                        },
+                        {
 							type: wsq.controls.repeater,
 							repeatSource: "switchval(\"#.selectedFile\",\"type\",\"#.dragSet\")",
 							controls: [{
@@ -477,7 +488,7 @@ function addform() {
     </div>
 </script>
 <script type="text/html" id="fluidpanel">
-    <div data-bind="foreach: controls, wsqid: true, wsqdimensions: true, wsqdraggable: draggable">
+    <div data-bind="css: cssClasses, foreach: controls, wsqid: true, wsqdimensions: true, wsqdraggable: draggable">
         <!-- ko template: viewTemplate -->
         <!-- /ko -->
     </div>

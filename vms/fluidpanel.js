@@ -8,6 +8,7 @@
     self.orientation = wsq.provider.parse(self.template.orientation || "vertical", self.data, self);
     self.type = "fluidpanel";
     self.viewTemplate = wsq.provider.parse(self.template.viewTemplate || "fluidpanel", self.data, self);
+    self.cssClasses = wsq.utils.style.createClassObject(self.provider.parse(self.template.classes || {}, self.data, self)),
     self.root = self.parent.root;
     self.id = self.root.getControlId();
     self.dimensions = new wsq.dimensions(self, parent.dimensions);

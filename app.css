@@ -297,3 +297,11 @@ div.designer-container-drop
     min-height: 20px;
 }
 
+div.banner
+{
+    font-size: 1.1em;
+    font-weight: bold;
+    background-color: #dddddd;
+    padding: 4px;
+}
+
