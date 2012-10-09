@@ -103,7 +103,7 @@
 						},
 						controls: [{
 							type: wsq.controls.repeater,
-							repeatSource: "$.controlGroups",
+							repeatSource: "switchval(\"#.selectedFile\",\"type\",\"#.dragSet\")",
 							controls: [{
 								type: wsq.controls.expander,
 								collapsed: false,
@@ -210,56 +210,56 @@
 		}]
 	}
 
-    var formData = {
-        selectedFile: ko.observable(null),
-	    templates: {
-	        formDataTab: {
-	            type: wsq.controls.form,
-	            classes: {
-	                datatabtop: "all",
-	                selected: true
-	            },
-	            header: {
-	                controls: [{
-	                    type: wsq.controls.label,
-	                    text: "$.name"
-	                }]
-	            },
-	            body: {
-	                controls: [{
-	                    type: wsq.controls.designerrootcontainer
-	                }]
-	            },
-                infoDataTemplate: "formInfoData"
-	        },
-	        workflowDataTab: {
-	            type: wsq.controls.workflow,
-	            classes: {
-	                datatabtop: "all",
-	                selected: true
-	            },
-	            header: {
-	                controls: [{
-	                    type: wsq.controls.label,
-	                    text: "$.name"
-	                }]
-	            },
-	            body: {
-	                controls: [{
-	                    type: wsq.controls.workflowcanvas
-	                }]
-	            },
+	var formData = {
+		selectedFile: ko.observable(null),
+		templates: {
+			formDataTab: {
+				type: wsq.controls.form,
+				classes: {
+					datatabtop: "all",
+					selected: true
+				},
+				header: {
+					controls: [{
+						type: wsq.controls.label,
+						text: "$.name"
+					}]
+				},
+				body: {
+					controls: [{
+						type: wsq.controls.designerrootcontainer
+					}]
+				},
+				infoDataTemplate: "formInfoData"
+			},
+			workflowDataTab: {
+				type: wsq.controls.workflow,
+				classes: {
+					datatabtop: "all",
+					selected: true
+				},
+				header: {
+					controls: [{
+						type: wsq.controls.label,
+						text: "$.name"
+					}]
+				},
+				body: {
+					controls: [{
+						type: wsq.controls.workflowcanvas
+					}]
+				},
 				infoDataTemplate: "workflowInfoData"
-	        },
+			},
 			workflowInfoData: {
 				type: "workflowinfo",
 				controls: [{
 					type: wsq.controls.label,
 					text: "\"x:\" + $.mousePosition.x"
-	            },
+				},
                 {
-                    type: wsq.controls.label,
-                    text: "\"y:\" + $.mousePosition.y"
+                	type: wsq.controls.label,
+                	text: "\"y:\" + $.mousePosition.y"
                 }]
 			},
 			formInfoData: {
@@ -269,7 +269,11 @@
 					text: "$.hoverControl"
 				}]
 			}
-	    }
+		},
+		dragSet: {
+			form: "$.controlGroups",
+			workflow: "$.activityGroups"
+		}
 	}
 
     var data = {
@@ -326,6 +330,12 @@
 		},
 		{
 			name: "Flow"
+		}]),
+		activityGroups: ko.observableArray([{
+			name: "Basic",
+			controls: ko.observableArray([{
+				name: "Start activity"
+			}])
 		}]),
     	top: {
     		text: "top"
