@@ -54,6 +54,7 @@
     <Content Include="app.css" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\canvas.js" />
     <Content Include="Scripts\canvasExtender.js" />
     <Content Include="Scripts\dimensions.js" />
     <Content Include="Scripts\dimensionsExtender.js" />
@@ -70,6 +71,7 @@
     <Content Include="Scripts\resizeEvent.js" />
     <Content Include="Scripts\styleextenders.js" />
     <Content Include="Scripts\utils.js" />
+    <Content Include="vms\backgroundactivity.js" />
     <Content Include="vms\dataPanel.js" />
     <Content Include="vms\datatab.js" />
     <Content Include="vms\designerpanel.js" />
@@ -82,6 +84,7 @@
     <Content Include="Scripts\vm.js" />
     <Content Include="vms\fluidpanel.js" />
     <Content Include="vms\repeater.js" />
+    <Content Include="vms\startactivity.js" />
     <Content Include="vms\workflow.js" />
     <Content Include="vms\workflowcanvas.js" />
     <Content Include="vms\webapp.js" />

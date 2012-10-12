@@ -51,6 +51,8 @@ div.app-top
 div.app-version
 {
     text-align: right;
+    padding-top: 5px;
+    padding-right: 5px;
 }
 
 div.app-top-inverted
@@ -302,6 +304,12 @@ div.banner
     font-size: 1.1em;
     font-weight: bold;
     background-color: #dddddd;
+    padding: 4px;
+}
+
+div.header
+{
+    font-size: 1.5em;
     padding: 4px;
 }
 

@@ -26,7 +26,17 @@
 
 	self.hover = function (e) {
 		if (self.options && self.options.infoData && self.options.infoData.hoverControl) {
-			self.options.infoData.hoverControl("root");
+			var path = "";
+			var ctl = self;
+			while (ctl && ctl.isControl) {
+				if (path != "") {
+					path = " > " + path;
+				}
+				path = ctl.type + path;
+				ctl = ctl.parent;
+			}
+
+			self.options.infoData.hoverControl(path);
 			e.stopPropagation();
 		}
 	}

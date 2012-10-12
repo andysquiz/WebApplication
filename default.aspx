@@ -15,6 +15,7 @@
     <script src="scripts/provider.js" type="text/javascript"></script>
     <script src="scripts/expressions.js" type="text/javascript"></script>
     <script src="scripts/functions.js" type="text/javascript"></script>
+	<script src="scripts/canvas.js" type="text/javascript"></script>
     <script src="scripts/draggableExtender.js" type="text/javascript"></script>
     <script src="scripts/droppableExtender.js" type="text/javascript"></script>
 	<script src="scripts/mouseExtender.js" type="text/javascript"></script>
@@ -33,6 +34,8 @@
 	<script src="vms/workflowcanvas.js" type="text/javascript"></script>
     <script src="vms/form.js" type="text/javascript"></script>
 	<script src="vms/workflow.js" type="text/javascript"></script>
+	<script src="vms/startactivity.js" type="text/javascript"></script>
+    <script src="vms/backgroundactivity.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
 </head>
 <script type="text/javascript">
@@ -44,8 +47,8 @@
 			minHeight: "400px",
 			invertTopBottom: "$.invertTopBottom",
 			top: {
-				height: "30px",
-				minHeight: "30px",
+				height: "40px",
+				minHeight: "40px",
 				classes: {
 					"app-top": false,
 					"app-top-inverted": true
@@ -64,9 +67,14 @@
 					},
 					middle: {
 						controls: [{
-							type: wsq.controls.label,
-							viewTemplate: "label2",
-							text: "$.name"
+							type: wsq.controls.fluidpanel,
+							classes: {
+								header: true
+							},
+							controls: [{
+								type: wsq.controls.label,
+								text: "$.name"
+							}]
 						}]
 					}
 				}]
@@ -345,8 +353,13 @@
 		activityGroups: ko.observableArray([{
 			name: "Basic",
 			controls: ko.observableArray([{
-				name: "Start activity"
-			}])
+				name: "Start activity",
+				type: "startactivity"
+            },
+            {
+                name: "Background activity",
+                type: "backgroundactivity"
+            }])
 		}]),
     	top: {
     		text: "top"
@@ -540,7 +553,7 @@ function addform() {
     </div>
 </script>
 <script type="text/html" id="fillcanvas">
-    <canvas id="test" data-bind="css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}, wsqelementheight: {obj: dimensions}, wsqelementwidth: {obj: dimensions}, wsqmouseposition: true, wsqcanvas2d: true" style="margin: 0; padding: 0; border: 1px solid #999999"></canvas>
+    <canvas id="test" data-bind="css: cssClasses, wsqstyleheight: {obj: dimensions}, wsqstylewidth: {obj: dimensions}, wsqelementheight: {obj: dimensions}, wsqelementwidth: {obj: dimensions}, wsqmouseposition: true, wsqcanvas2d: true, wsqdroppable: true, wsqdrag: true" style="margin: 0; padding: 0; border: 1px solid #999999"></canvas>
 </script>
 <script type="text/html" id="datapanelitem">
     

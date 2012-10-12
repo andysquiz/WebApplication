@@ -4,8 +4,9 @@
 	self.template = uo(template);
 	self.data = uo(data);
 	self.type = "workflowcanvas";
+	self.canvas = new wsq.canvas.manager(self);
 
-	wsq.controls.build(self)(wsq.extenders.base, parent)(wsq.extenders.container);
+	wsq.controls.build(self)(wsq.extenders.base, parent)(wsq.extenders.container)(wsq.extenders.childOptions, { canvas: self.canvas });
 
 
 	self.viewTemplate = wsq.provider.parse(self.template.viewTemplate || "fillcanvas", self.data, self);
@@ -30,11 +31,20 @@
 		}
 	});
 
-	if (typeof (self.template.controls) != "undefined") {
-		wsq.controls.createControls.call(self, self.controls, self.template.controls, self.data, self);
+	self.drop = function (ev) {
+		var dt = ev.originalEvent.dataTransfer;
+		var type = dt.getData("type");
+		var text = dt.getData("text");
+		self.controls.push(new wsq.controls[type]({}, self.data, self));
+		self.canvas.render();
 	}
 
+
 	self.context = ko.observable(null);
+	self.context.subscribe(function (newVal) {
+		self.canvas.setContext(newVal);
+	});
+
 	self.canvasData = {
 		objectCache: [],
 		testText: ko.computed(function () {
@@ -42,16 +52,7 @@
 		})
 	}
 
-	self.redraw = ko.computed(function () {
-		var x = self.mousePosition.x();
-		var y = self.mousePosition.y();
-		if (self.context() != null) {
-			var c = self.context();
-			c.scale(1, 1);
-			c.clearRect(0, 0, parseInt(self.dimensions.width()), parseInt(self.dimensions.height()));
-			c.font = '18pt Calibri';
-			c.fillStyle = 'blue';
-			c.fillText(self.canvasData.testText(), 10, 25);
-		}
-	})
+	if (typeof (self.template.controls) != "undefined") {
+		wsq.controls.createControls.call(self, self.controls, self.template.controls, self.data, self);
+	}
 }
