@@ -54,6 +54,9 @@
     <Content Include="app.css" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="images\expander.png" />
+    <Content Include="images\expandercollapsed.png" />
+    <Content Include="images\workflow\activities\modify.png" />
     <Content Include="Scripts\canvas.js" />
     <Content Include="Scripts\canvasExtender.js" />
     <Content Include="Scripts\dimensions.js" />
@@ -71,6 +74,7 @@
     <Content Include="Scripts\resizeEvent.js" />
     <Content Include="Scripts\styleextenders.js" />
     <Content Include="Scripts\utils.js" />
+    <Content Include="Scripts\workflowactivities.js" />
     <Content Include="vms\backgroundactivity.js" />
     <Content Include="vms\dataPanel.js" />
     <Content Include="vms\datatab.js" />
@@ -83,6 +87,7 @@
     <Content Include="vms\layout.js" />
     <Content Include="Scripts\vm.js" />
     <Content Include="vms\fluidpanel.js" />
+    <Content Include="vms\modifyactivity.js" />
     <Content Include="vms\repeater.js" />
     <Content Include="vms\startactivity.js" />
     <Content Include="vms\workflow.js" />

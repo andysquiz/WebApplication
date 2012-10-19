@@ -20,6 +20,7 @@
     <script src="scripts/droppableExtender.js" type="text/javascript"></script>
 	<script src="scripts/mouseExtender.js" type="text/javascript"></script>
 	<script src="scripts/canvasExtender.js" type="text/javascript"></script>
+	<script src="scripts/workflowactivities.js" type="text/javascript"></script>
     <script src="vms/webapp.js" type="text/javascript"></script>
     <script src="vms/layout.js" type="text/javascript"></script>
     <script src="vms/fillpanel.js" type="text/javascript"></script>
@@ -35,6 +36,7 @@
     <script src="vms/form.js" type="text/javascript"></script>
 	<script src="vms/workflow.js" type="text/javascript"></script>
 	<script src="vms/startactivity.js" type="text/javascript"></script>
+	<script src="vms/modifyactivity.js" type="text/javascript"></script>
     <script src="vms/backgroundactivity.js" type="text/javascript"></script>
 	<link rel="Stylesheet" href="app.css" />
 </head>
@@ -359,6 +361,10 @@
             {
                 name: "Background activity",
                 type: "backgroundactivity"
+            },
+            {
+            	name: "Modify activity",
+            	type: "modifyactivity"
             }])
 		}]),
     	top: {
